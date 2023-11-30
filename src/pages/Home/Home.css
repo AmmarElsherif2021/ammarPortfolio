@@ -1,7 +1,14 @@
-.home {
+.home-intro {
     height:100vh;
-
+    
     display: grid;
-    grid-template-rows: 1fr 9fr;
+    grid-template-rows: 1fr 10fr ;
+    
+  }
+  .home-strips {
+    height:50vh;
+    
+    display: grid;
+    grid-template-rows: 3fr 1fr ;
     
   }

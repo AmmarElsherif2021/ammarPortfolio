@@ -3,7 +3,13 @@ const Hero=()=>{
     return(
         
             <div className='hero'>
-                <h1>Hero ... </h1>
+                
+                <div className='hero-img'>
+                <h1>Hero img </h1>
+                </div>
+                <div className='hero-img'>
+                <h1>Hero text </h1>
+                </div>
             </div>
         
     )
