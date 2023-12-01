@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import Root from './routes/root.jsx'
+import Root from './routes/root/root.jsx'
 import ErrorPage from './routes/error.jsx'
 
 import {
@@ -10,6 +10,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from './routes/Home/Home.jsx'
+
+
 const router = createBrowserRouter([
   {
     path: "/",

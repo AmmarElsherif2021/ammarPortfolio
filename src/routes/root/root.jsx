@@ -1,9 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Root=()=>{
     return(
-        <div>
+        <div className="root">
         <div>
           <Navbar/>  
         </div>

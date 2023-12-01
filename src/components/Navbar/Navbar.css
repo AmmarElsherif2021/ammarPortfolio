@@ -7,10 +7,14 @@
     background: yellowgreen;
     justify-content:left;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr;
+    justify-content: left;
+    overflow:hidden;
+    
    
 }
 .right-nav{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    background: red;
 }
