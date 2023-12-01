@@ -1,10 +1,12 @@
 import './Navbar.css'
-
+import { Outlet, Link } from "react-router-dom";
 const Navbar=()=>{
     return(
         <div className = 'nav'>
             <div className='left-nav'>
-              <h3>Logo</h3>
+              
+              <Link to={`Home1`}><h3>Logo</h3></Link>
+              <Outlet/>
             </div>
             <div></div>
             <div className='right-nav'>

@@ -1,6 +1,6 @@
 .home-intro {
-    height:100vh;
-    
+    height:88vh;
+    margin-top:12vh;
     display: grid;
     grid-template-rows: 1fr 10fr ;
     
