@@ -2,6 +2,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Hero from "../../components/Hero/Hero";
 import Strip from "../../components/Strip/Strip";
 import './Home.css'
+import ListOverview from "../ListOverview/ListOverview";
 const Home=()=>{
     return(
         <div className='home'>
@@ -22,9 +23,12 @@ const Home=()=>{
                      <Strip/>
                 </div>
            </div>
-           <div className='list-overview'>
+           <div className='home-list-overview'>
                 <div>
                     <h1>Here a list of projects I worked on will be added</h1>
+                </div>
+                <div>
+                 <ListOverview/>
                 </div>
            </div>
             

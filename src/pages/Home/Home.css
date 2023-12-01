@@ -6,9 +6,15 @@
     
   }
   .home-strips {
-    height:50vh;
+    height:100vh;
     
     display: grid;
     grid-template-rows: 3fr 1fr ;
     
+  }
+  .home-list-overview{
+    height:100vh;
+    display:grid;
+    grid-template-rows: 1fr 5fr;
+
   }
