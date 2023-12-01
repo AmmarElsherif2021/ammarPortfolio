@@ -2,12 +2,12 @@
     height:12vh;
     width:100%;
     border-bottom: 3px black solid;
-    position:absolute;
+    position:fixed;
     top:0;
     background: yellowgreen;
     justify-content:left;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 1fr;
     justify-content: left;
     overflow:hidden;
     
@@ -16,5 +16,5 @@
 .right-nav{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    background: red;
+    
 }

@@ -8,7 +8,7 @@ const Navbar=()=>{
               <Link to={`Home`}><h3>Logo</h3></Link>
               <Outlet/>
             </div>
-           \
+           
             <div className='right-nav'>
                 <div>
                 <h4>Browse</h4>
