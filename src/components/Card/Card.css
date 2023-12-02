@@ -1,12 +1,25 @@
 .card{
-    background: rgb(36, 129, 121);
+    position:relative;
+    background: rgb(59, 55, 55);
     display:grid;
-    grid-template-rows:3fr 1fr;
+    min-height:20vh;
+    grid-template-rows: 5fr 1fr;
     margin: 1px;
     padding: 0;
 }
 .card-img{
+ 
     background:black;
-    width:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    margin: 0;
+    padding:0;
+  
+    width: 100%;
+    
+
+}
+.card-p{
     margin:0;
 }

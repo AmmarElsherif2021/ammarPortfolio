@@ -22,3 +22,12 @@
     grid-template-rows: 1fr 5fr;
 
   }
+  .home-footer{
+    display:grid;
+    grid-template-columns:4fr 1fr;
+    
+  }
+  li{
+    text-justify: left;
+    justify-content: left;
+  }

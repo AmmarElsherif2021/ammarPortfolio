@@ -29,6 +29,18 @@ const Home=()=>{
                  <ListOverview/>
                 </div>
            </div>
+           <div className='home-footer'>
+                <div>
+                    <h4>Welcome to Ammar portfolio</h4>
+                </div>
+                <div>
+                    <ul>
+                     <li>Blogs</li>
+                     <li>Contacts</li>
+                     <li>FAQs</li>
+                    </ul>
+                </div>
+           </div>
             
          
          

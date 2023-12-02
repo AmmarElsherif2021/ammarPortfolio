@@ -7,6 +7,7 @@ const Card=()=>{
             </div>
             <div className='card-p'>
             <p>lorem ipsum sljf bfy kdlh jhks aki kgs jilhk hsgyud</p>
+            
             </div>
         </div>
     )
