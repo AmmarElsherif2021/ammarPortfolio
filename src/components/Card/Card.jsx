@@ -1,12 +1,13 @@
 import './Card.css'
-const Card=()=>{
+const Card=(props)=>{
     return(
         <div className='card'>
             <div className='card-img'>
-                <h1> card img</h1>
+                <img src='${props.img}'/>
             </div>
             <div className='card-p'>
-            <p>lorem ipsum sljf bfy kdlh jhks aki kgs jilhk hsgyud</p>
+            <h3>{props.title}</h3>
+            <p>{props.discription}</p>
             
             </div>
         </div>
