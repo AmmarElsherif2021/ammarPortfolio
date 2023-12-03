@@ -19,6 +19,10 @@ const Navbar=()=>{
                 <div>
                 <h4>Contact</h4>
                 </div>
+                <div>
+                <Link to={`Admin`}><h4>Dashboard</h4></Link>
+                <Outlet/>
+                </div>
             </div>
 
         </div>

@@ -1,8 +1,8 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Hero from "../../components/Hero/Hero";
 import Strip from "../../components/Strip/Strip";
-import './Home.css'
-import ListOverview from "../../pages/ListOverview/ListOverview";
+import './Home.css';
+import ListOverview from "../ListOverview/ListOverview";
 const Home=()=>{
     return(
         <div className='home'>

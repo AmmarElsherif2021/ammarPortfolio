@@ -10,7 +10,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from './routes/Home/Home.jsx'
-
+import Admin from './routes/Admin/Admin.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,13 @@ const router = createBrowserRouter([
         element: <Home />,
     
       },
+     
     ],
+  },
+  {
+    path: "Admin",
+    element: <Admin/>,
+
   },
  
 ]);

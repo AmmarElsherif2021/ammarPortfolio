@@ -1,0 +1,9 @@
+.admin-grid1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.admin-links{
+    width: 100%;
+    background: orange;
+}
