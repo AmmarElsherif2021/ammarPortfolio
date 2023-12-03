@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle , DialogContentText} from '@material-ui/core';
-
-
-
-
-
-import React from 'react';
+import { styled } from '@mui/material/styles';
 
 import TextField from '@material-ui/core/TextField';
 
 
 
 const Popup=()=> {
+   
+  const StyledButton = styled(Button)(({ theme }) => ({
+    width: '100%',
+    height:'100%',
+    display: 'block',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  }));
   
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -22,12 +28,12 @@ const Popup=()=> {
     const handleClose = () => {
       setOpen(false);
     };
-  
+   
     return (
-      <div>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open form dialog
-        </Button>
+      <div className='popup'>
+        <StyledButton variant="outlined" onClick={handleClickOpen}>
+        <h1>+</h1>
+      </StyledButton>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
           <DialogContent>

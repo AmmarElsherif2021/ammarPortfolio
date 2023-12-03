@@ -3,6 +3,11 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
 }
+.admin-grid1-add{
+    background: rgb(32, 192, 117);
+    justify-content: center;
+    align-items: center;
+}
 .admin-links{
     width: 100%;
     background: orange;

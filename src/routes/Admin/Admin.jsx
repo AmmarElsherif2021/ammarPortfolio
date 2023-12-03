@@ -45,7 +45,7 @@ const projects=[
   }
   ,
   {
-    id:'4',
+    id:'5',
     title:'project#',
     discription: 'lorem iopsum ufb uboi vwio ie wsui',
     project_link:'none',
@@ -90,7 +90,7 @@ const Admin=()=>{
   
     return(
         <div className='admin'>
-          {updating? <Popup/>:<div></div>}
+           
             <div>
                <h1>This is your admin dashboard</h1>
             </div>
@@ -100,7 +100,7 @@ const Admin=()=>{
                   <Card key={project.id} title={project.title} discription={project.discription} img={project.img}/>
                 )
               })}
-              <button onClick={handleProjectAdd}/>
+              <div className='admin-grid1-add'><Popup/></div>
             </div>
             <div>
             <h1>This is your admin dashboard</h1>
