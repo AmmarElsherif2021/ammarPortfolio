@@ -11,8 +11,8 @@ import {
 } from "react-router-dom";
 import Home from './routes/Home/Home.jsx'
 import Admin from './routes/Admin/Admin.jsx'
-import AddProject from './routes/Admin/AddProject/AddProject.jsx'
-import Popup from './components/Popup/Popup.jsx'
+
+import Popup from './routes/Admin/Popup/Popup.jsx'
 
 const router = createBrowserRouter([
   {

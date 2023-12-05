@@ -1,10 +1,10 @@
 import { useState ,useEffect } from 'react';
 import Card from '../../components/Card/Card'
 import Strip from '../../components/Strip/Strip'
-import AddProject from './AddProject/AddProject';
+//import AddProject from './AddProject/AddProject';
 import { ReactDOM } from 'react-dom';
 import './Admin.css'
-import Popup from '../../components/Popup/Popup';
+import Popup from './Popup/Popup';
 const projects=[
   {
     pid:'1',
@@ -58,20 +58,7 @@ const projects=[
 
 
 const Admin=()=>{
-  // updating states
-  const[updating,setUpdating]=useState(0);
-
-  //handle projects add
-  function handleProjectAdd() {
-    
-    setUpdating(1);
-    console.log(updating)
-  }
-  function handleProjectCancel() {
-    setUpdating(0);
-    console.log(updating)
-    
-  }
+ 
   //useEffect to pop up and update status
  /*useEffect(() => {
     handleProjectAdd()
@@ -100,7 +87,7 @@ const Admin=()=>{
                   <div><Card key={project.pid} project_title={project.project_title} discription={project.discription} img={project.img}/></div>
                 )
               })}
-              <div className='admin-grid1-add'><Popup/></div>
+              <div className='admin-grid1-add'> <Popup/> </div>
             </div>
             <div>
             <h1>This is your admin dashboard</h1>

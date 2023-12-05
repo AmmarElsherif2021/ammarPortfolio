@@ -17,7 +17,7 @@
     
   }
   .home-list-overview{
-    height:100vh;
+    min-height:100vh;
     display:grid;
     grid-template-rows: 1fr 5fr;
 
