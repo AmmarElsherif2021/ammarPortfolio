@@ -1,9 +1,11 @@
 import './Card.css'
+import unkownProj from '../../assets/unkownProj.png'
 const Card=(props)=>{
+   
     return(
         <div className='card'>
             <div className='card-img'>
-                <img src='${props.img}'/>
+                <img className='card-img' src={props.img?`${props.img}`:unkownProj}/>
             </div>
             <div className='card-p'>
             <h3>{props.title}</h3>

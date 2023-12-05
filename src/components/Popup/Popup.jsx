@@ -35,27 +35,60 @@ const Popup=()=> {
         <h1>+</h1>
       </StyledButton>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">Add new Project</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send updates
-              occasionally.
-            </DialogContentText>
+            
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
+              id="title"
+              label="Project title"
+              type="text"
               fullWidth
             />
           </DialogContent>
+
+          <DialogContent>
+            
+            <TextField
+              autoFocus
+              margin="dense"
+              id="discription"
+              label="Discription"
+              type="text"
+              fullWidth
+            />
+          </DialogContent>
+
+          <DialogContent>
+            
+            <TextField
+              autoFocus
+              margin="dense"
+              id="project_link"
+              label="Project link"
+              type="url"
+              fullWidth
+            />
+
+            <TextField
+              autoFocus
+              margin="dense"
+              id="project_github"
+              label="Project github"
+              type="url"
+              fullWidth
+            />
+          </DialogContent>
+
+
+          
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
             <Button onClick={handleClose} color="primary">
-              Subscribe
+              Add
             </Button>
           </DialogActions>
         </Dialog>

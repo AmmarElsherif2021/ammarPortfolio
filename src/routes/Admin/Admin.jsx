@@ -7,49 +7,49 @@ import './Admin.css'
 import Popup from '../../components/Popup/Popup';
 const projects=[
   {
-    id:'1',
-    title:'project#',
+    pid:'1',
+    project_title:'project#',
     discription: 'lorem iopsum ufb uboi vwio ie wsui',
     project_link:'none',
-    img:'img link',
+    img:'',
     github:'github link'
   
   }, 
   {
-    id:'2',
-    title:'project#',
+    pid:'2',
+    project_title:'project#',
     discription: 'lorem iopsum ufb uboi vwio ie wsui',
     project_link:'none',
-    img:'img link',
+    img:'',
     github:'github link'
   
   },
   {
-    id:'3',
-    title:'project#',
+    pid:'3',
+    project_title:'project#',
     discription: 'lorem iopsum ufb uboi vwio ie wsui',
     project_link:'none',
-    img:'img link',
+    img:'',
     github:'github link'
   
   }
   ,
   {
-    id:'4',
-    title:'project#',
+    pid:'4',
+    project_title:'project#',
     discription: 'lorem iopsum ufb uboi vwio ie wsui',
     project_link:'none',
-    img:'img link',
+    img:'',
     github:'github link'
   
   }
   ,
   {
-    id:'5',
-    title:'project#',
+    pid:'5',
+    project_title:'project#',
     discription: 'lorem iopsum ufb uboi vwio ie wsui',
     project_link:'none',
-    img:'img link',
+    img:'',
     github:'github link'
   
   }
@@ -97,7 +97,7 @@ const Admin=()=>{
             <div className='admin-grid1'>
               {projects.map((project)=>{
                 return(
-                  <Card key={project.id} title={project.title} discription={project.discription} img={project.img}/>
+                  <div><Card key={project.pid} project_title={project.project_title} discription={project.discription} img={project.img}/></div>
                 )
               })}
               <div className='admin-grid1-add'><Popup/></div>

@@ -1,7 +1,13 @@
+.admin{
+    
+}
 .admin-grid1{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    height:auto;
+    grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+    
+    
 }
 .admin-grid1-add{
     background: rgb(32, 192, 117);
