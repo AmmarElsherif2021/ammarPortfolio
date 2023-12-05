@@ -74,6 +74,9 @@ const Admin=()=>{
 
 
   
+  const childToParent=(childData)=>{
+      setData(childData);
+    }         
   
     return(
         <div className='admin'>
