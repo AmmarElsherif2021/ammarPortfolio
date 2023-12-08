@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle , DialogContentText} from '@material-ui/core';
 import { styled } from '@mui/material/styles';
 
@@ -8,20 +9,24 @@ import TextField from '@material-ui/core/TextField';
 /*
 props:
 list
+itemType:project || tech
 */
 
 // unique id
+
+
 const uniqueId = () => {
   return Math.random().toString(36).substr(2, 9);
 }
 
 // Problem carry new values to Admin
-const Popup=(props)=>{
+const Dialogue=(props,{popToParent})=>{
   
   const [addedToList,setAddedToList]=useState({
     ...props.list
   })
-   
+  
+  
   const StyledButton = styled(Button)(({ theme }) => ({
     width: '100%',
     height:'100%',
@@ -42,36 +47,37 @@ const Popup=(props)=>{
   
     const handleCloseAdd = () => {
         //test
-         console.log(list)
+         console.log(props.list)
+         popToParent(addedToList,props.list);
         //set admin data
         
       
       setOpen(false);
-      setAddedProject(
+      setAddedToList(
         {
-          pid:'',
-          project_title:'',
+          id:'',
+          title:'',
           discription: '',
-          project_link:'',
+          link:'',
           img:'',
           github:''
         
         }
       
       )
-      console.log(addedProject.project_title)
+      
 
     };
     
     const handleCloseCancel = () => {
-      console.log(addedProject.project_title)
+      console.log(addedToList.title)
       setOpen(false);
-      setAddedProject(
+      setAddedToList(
         {
-          pid:'',
-          project_title:'',
+          id:'',
+          title:'',
           discription: '',
-          project_link:'',
+          link:'',
           img:'',
           github:''
         
@@ -80,20 +86,25 @@ const Popup=(props)=>{
       )}
    const handleChange=(event)=>{
     const {name,value}=event.target
-    setAddedProject((prevProjects)=>(
+    setAddedToList((prevItem)=>(
       {
-        ...prevProjects,
+        ...prevItem,
         [name]:value
           }
       ))
       }
+
+
+
+
+  
     return (
       <div className='popup'>
       <StyledButton  variant="outlined" onClick={handleClickOpen}>
       <h1>+</h1>
      </StyledButton>
     <Dialog open={open} onClose={handleCloseCancel} aria-labelledby="form-dialog-title">
-    <DialogTitle id="form-dialog-title">Add new Project</DialogTitle>
+    <DialogTitle id="form-dialog-title">Add new {props.itemType}</DialogTitle>
     <DialogContent>
       
       <TextField
@@ -102,7 +113,7 @@ const Popup=(props)=>{
         id="title"
         label="Project title"
         type="text"
-        value={addedProject.title}
+        value={addedToList.title}
         onChange={handleChange}
         fullWidth
       />
@@ -116,24 +127,28 @@ const Popup=(props)=>{
         id="discription"
         label="Discription"
         type="text"
-        value={addedProject.discription}
+        value={addedToList.discription}
         onChange={handleChange}
         fullWidth
       />
     </DialogContent>
 
-    <DialogContent>
+    
       
+      {
+        props.itemType=='project'? 
+      <DialogContent>
       <TextField
         autoFocus
         margin="dense"
         id="project_link"
         label="Project link"
         type="url"
-        value={addedProject.project_link}
+        value={addedToList.link}
         onChange={handleChange}
         fullWidth
       />
+      
 
       <TextField
         autoFocus
@@ -141,11 +156,15 @@ const Popup=(props)=>{
         id="project_github"
         label="Project github"
         type="url"
-        value={addedProject.project_link}
+        value={addedToList.github}
         onChange={handleChange}
         fullWidth
       />
     </DialogContent>
+   
+    :
+      ``
+      }
 
 
     
@@ -162,7 +181,7 @@ const Popup=(props)=>{
 );
 }
 
-export default Popup
+export default Dialogue
 /**
  *import React, { useState } from 'react';
 import Child from './Child';

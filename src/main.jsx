@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Home from './routes/Home/Home.jsx'
 import Admin from './routes/Admin/Admin.jsx'
+//import Dialogue from './routes/Admin/Dialogue/Dialogue.jsx'
 
 import Popup from './routes/Admin/Popup/Popup.jsx'
 

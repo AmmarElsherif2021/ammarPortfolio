@@ -2,82 +2,57 @@ import { useState ,useEffect } from 'react';
 import Card from '../../components/Card/Card'
 import Strip from '../../components/Strip/Strip'
 //import AddProject from './AddProject/AddProject';
+//import Dialogue from './Dialogue/Dialogue';
 import { ReactDOM } from 'react-dom';
 import './Admin.css'
 import Popup from './Popup/Popup';
 const projects=[
-  {
-    pid:'1',
-    project_title:'project#',
-    discription: 'lorem iopsum ufb uboi vwio ie wsui',
-    project_link:'none',
-    img:'',
-    github:'github link'
   
-  }, 
-  {
-    pid:'2',
-    project_title:'project#',
-    discription: 'lorem iopsum ufb uboi vwio ie wsui',
-    project_link:'none',
-    img:'',
-    github:'github link'
-  
-  },
-  {
-    pid:'3',
-    project_title:'project#',
-    discription: 'lorem iopsum ufb uboi vwio ie wsui',
-    project_link:'none',
-    img:'',
-    github:'github link'
-  
-  }
-  ,
-  {
-    pid:'4',
-    project_title:'project#',
-    discription: 'lorem iopsum ufb uboi vwio ie wsui',
-    project_link:'none',
-    img:'',
-    github:'github link'
-  
-  }
-  ,
-  {
-    pid:'5',
-    project_title:'project#',
-    discription: 'lorem iopsum ufb uboi vwio ie wsui',
-    project_link:'none',
-    img:'',
-    github:'github link'
-  
-  }
 ]
 
 
 
 const Admin=()=>{
  
-  //useEffect to pop up and update status
- /*useEffect(() => {
-    handleProjectAdd()
-    document.addEventListener('click', handleProjectAdd);
-    
-    return () => {
-      document.removeEventListener('click', handleProjectAdd);
-    };
-  }, [updating]);*/
+  const [projects,setProjects]=useState([]);
+  useEffect(() => {
+    fetch("src\routes\Admin\AdminData\projects.json")
+      .then((response) => response.json())
+      .then((jsonData) => setProjects(jsonData));
+  }, []);
+  useEffect(()=>console.log('refresh projects list'),[projects])
 
-  //POP up 
+  //handle popup ops:
   
 
+  const handleEdit = () => {
+    // Modify the data as needed
+    const newData = { ...data, key: "new value" };
 
+    // Send the updated data to the server
+    fetch("src\routes\Admin\AdminData\projects.json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+    })
+      .then((response) => response.json())
+      .then((jsonData) => setData(jsonData));
+  };
   
-  const childToParent=(childData)=>{
-      setData(childData);
+  function popToParent(childData){
+      console.log('pop to parent working !')
+      projects.push(childData);
+      console.log(projects)
     }         
   
+
+    //useEffect
+
+    useEffect(()=>{
+      console.log(...projects)
+    },[projects])
     return(
         <div className='admin'>
            
@@ -85,12 +60,12 @@ const Admin=()=>{
                <h1>This is your admin dashboard</h1>
             </div>
             <div className='admin-grid1'>
-              {projects.map((project)=>{
+              {projects && projects.map((project)=>{
                 return(
                   <div><Card key={project.pid} project_title={project.project_title} discription={project.discription} img={project.img}/></div>
                 )
               })}
-              <div className='admin-grid1-add'> <Popup/> </div>
+              <div className='admin-grid1-add'> <Popup popToParent={popToParent}/> </div>
             </div>
             <div>
             <h1>This is your admin dashboard</h1>

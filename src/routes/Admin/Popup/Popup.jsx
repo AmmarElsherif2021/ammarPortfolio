@@ -11,20 +11,12 @@ const uniqueId = () => {
   return Math.random().toString(36).substr(2, 9);
 }
 
+
 // Problem carry new values to Admin
-const Popup=()=>{
-  
-  const [addedProject,setAddedProject]=useState({
-    pid:'',
-    project_title:'',
-    discription: '',
-    project_link:'',
-    img:'',
-    github:''
-  
-  })
-   
-  const StyledButton = styled(Button)(({ theme }) => ({
+const Popup=({popToParent})=>{
+
+   // styled button constant
+   const StyledButton = styled(Button)(({ theme }) => ({
     width: '100%',
     height:'100%',
     display: 'block',
@@ -35,25 +27,38 @@ const Popup=()=>{
     },
   }));
   
+  //added project state
+  const [addedProject,setAddedProject]=useState({
+    pid:'',
+    project_title:'',
+    discription: '',
+    project_link:'',
+    img:'',
+    github:''
+  
+  })
+   
+  // open/closed states
     const [open, setOpen] = useState(false);
 
+  
+  // handle form clicks  
     const handleClickOpen = () => {
       setOpen(true);
       
     };
   
-    const handleCloseAdd = () => {
-      console.log(addedProject.project_title)
+    const handleCloseAdd = (e) => {
+      e.preventDefault()
       setAddedProject((prev)=>(
         {
           ...prev,
           id:uniqueId()
         }
       ))
-      props.addedProject={
-        ...addedProject
-      }
+      popToParent(addedProject)
       setOpen(false);
+
       setAddedProject(
         {
           pid:'',
@@ -66,12 +71,11 @@ const Popup=()=>{
         }
       
       )
-      console.log(addedProject.project_title)
+      
 
     };
     
     const handleCloseCancel = () => {
-      console.log(addedProject.project_title)
       setOpen(false);
       setAddedProject(
         {
@@ -81,10 +85,9 @@ const Popup=()=>{
           project_link:'',
           img:'',
           github:''
-        
         }
-
       )}
+
    const handleChange=(event)=>{
     const {name,value}=event.target
     setAddedProject((prevProjects)=>(
@@ -94,6 +97,14 @@ const Popup=()=>{
           }
       ))
       }
+
+
+
+
+
+
+
+
     return (
       <div className='popup'>
       <StyledButton  variant="outlined" onClick={handleClickOpen}>
@@ -109,7 +120,8 @@ const Popup=()=>{
         id="title"
         label="Project title"
         type="text"
-        value={addedProject.title}
+        name='project_title'
+        value={addedProject.project_title}
         onChange={handleChange}
         fullWidth
       />
@@ -121,6 +133,7 @@ const Popup=()=>{
         autoFocus
         margin="dense"
         id="discription"
+        name="discription"
         label="Discription"
         type="text"
         value={addedProject.discription}
@@ -135,6 +148,7 @@ const Popup=()=>{
         autoFocus
         margin="dense"
         id="project_link"
+        name="project_link"
         label="Project link"
         type="url"
         value={addedProject.project_link}
@@ -146,6 +160,7 @@ const Popup=()=>{
         autoFocus
         margin="dense"
         id="project_github"
+        name="project_github"
         label="Project github"
         type="url"
         value={addedProject.project_link}
