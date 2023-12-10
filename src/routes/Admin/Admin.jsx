@@ -6,17 +6,21 @@ import Strip from '../../components/Strip/Strip'
 import { ReactDOM } from 'react-dom';
 import './Admin.css'
 import Popup from './Popup/Popup';
-const projects=[
-  
-]
+
+// unique id
+const uniqueId = () => {
+  return Math.random().toString(36).substr(2, 9);
+}
 
 
 
 const Admin=()=>{
  
   const [projects,setProjects]=useState([]);
+ 
+  //get projects from projects.json
   useEffect(() => {
-    fetch("src\routes\Admin\AdminData\projects.json")
+    fetch("src/routes/Admin/AdminData/projects.json")
       .then((response) => response.json())
       .then((jsonData) => setProjects(jsonData));
   }, []);
@@ -30,7 +34,7 @@ const Admin=()=>{
     const newData = { ...data, key: "new value" };
 
     // Send the updated data to the server
-    fetch("src\routes\Admin\AdminData\projects.json", {
+    fetch("src/routes/Admin/AdminData/projects.json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,9 +64,9 @@ const Admin=()=>{
                <h1>This is your admin dashboard</h1>
             </div>
             <div className='admin-grid1'>
-              {projects && projects.map((project)=>{
+              {projects && projects.map((project,index)=>{
                 return(
-                  <div><Card key={project.pid} project_title={project.project_title} discription={project.discription} img={project.img}/></div>
+                  <div key={index}><Card key={project.pid} project_title={project.atts.project_title} discription={project.atts.discription} img={project.atts.img}/></div>
                 )
               })}
               <div className='admin-grid1-add'> <Popup popToParent={popToParent}/> </div>
