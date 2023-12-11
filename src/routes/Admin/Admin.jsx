@@ -1,4 +1,8 @@
 import { useState ,useEffect } from 'react';
+//import { readFile, writeFile } from "react-file-reader";
+import axios from 'axios';
+
+
 import Card from '../../components/Card/Card'
 import Strip from '../../components/Strip/Strip'
 //import AddProject from './AddProject/AddProject';
@@ -20,18 +24,48 @@ const Admin=()=>{
  
   //get projects from projects.json
   useEffect(() => {
-    fetch("src/routes/Admin/AdminData/projects.json")
-      .then((response) => response.json())
-      .then((jsonData) => setProjects(jsonData));
+    fetchData(); 
   }, []);
-  useEffect(()=>console.log('refresh projects list'),[projects])
+  useEffect(()=>console.log('refresh projects list'),[projects]);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("src/routes/Admin/AdminData/projects.json");
+      setProjects(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   //handle popup ops:
   
+  const handleCreate=(item)=>{
+    const newItem={
+      ...item,
+      pid:uniqueId()
+    }
+    setProjects((prev)=>(
+      [...prev,
+      newItem]
+    ))
+    console.log(`pid of new added is >>>> ${item.pid} <<<<`)
+  }
 
-  const handleEdit = () => {
+  //save popup ops
+  const saveData = async () => {
+    try {
+      await axios.put("src/routes/Admin/AdminData/projects.json", JSON.stringify(projects));
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /*
+    const handleEdit = (id,newData) => {
     // Modify the data as needed
     const newData = { ...data, key: "new value" };
+
+  
 
     // Send the updated data to the server
     fetch("src/routes/Admin/AdminData/projects.json", {
@@ -44,11 +78,13 @@ const Admin=()=>{
       .then((response) => response.json())
       .then((jsonData) => setData(jsonData));
   };
-  
+  */
   function popToParent(childData){
       console.log('pop to parent working !')
-      projects.push(childData);
+      handleCreate(childData);
       console.log(projects)
+      saveData()
+      console.log('updated?')
     }         
   
 
@@ -56,6 +92,7 @@ const Admin=()=>{
 
     useEffect(()=>{
       console.log(...projects)
+      saveData()
     },[projects])
     return(
         <div className='admin'>
@@ -66,7 +103,7 @@ const Admin=()=>{
             <div className='admin-grid1'>
               {projects && projects.map((project,index)=>{
                 return(
-                  <div key={index}><Card key={project.pid} project_title={project.atts.project_title} discription={project.atts.discription} img={project.atts.img}/></div>
+                  <div key={index}><Card key={project.pid} project_title={project.project_title} discription={project.discription} img={project.img}/></div>
                 )
               })}
               <div className='admin-grid1-add'> <Popup popToParent={popToParent}/> </div>

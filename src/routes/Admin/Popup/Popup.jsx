@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 
 // unique id
 const uniqueId = () => {
-  return Math.random().toString(36).substr(2, 9);
+  return Math.random().toString(36);
 }
 
 
@@ -53,7 +53,7 @@ const Popup=({popToParent})=>{
       setAddedProject((prev)=>(
         {
           ...prev,
-          id:uniqueId()
+          pid:uniqueId()
         }
       ))
       popToParent(addedProject)

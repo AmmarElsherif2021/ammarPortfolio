@@ -1,27 +1,25 @@
 [
     { "pid":"1",
         
-            "atts":
-            {
+            
             "project_title":"fggg",
             "discription": " lorem iopsum ufb uboi vwio ie wsui",
             "project_link":"",
             "img":"",
             "github":""
-            }
+            
            
     },
 
     { "pid":"2",
         
-            "atts":
-            {
+            
             "project_title":"fggg2",
             "discription": " lorem iopsum ufb uboi vwio ie wsui",
             "project_link":"",
             "img":"",
             "github":""
-            }
+            
            
     }
 ]
