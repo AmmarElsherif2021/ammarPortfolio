@@ -1,57 +1,48 @@
-import { useUser } from '../../routes/userContext';
-import { useState } from 'react';
+import { useUserContext, userProvider } from '../../routes/userContext';
+import { useState,useContext } from 'react';
 import './Navbar.css'
 import { Outlet, Link } from "react-router-dom";
-const Login=()=>{// Use state to store the values of the inputs
-    const [user, setUser] = useState(
-        {
-            name:'',
-            password:''
-        }
-    );
-    
-  
-    // Define a function to handle the change of the inputs
-    function handleChange(event) {
-      // Get the name and value of the target input
-      const { name, value } = event.target;
-      // Update the state of the corresponding input
-      setUserData((prev)=>({
-        ...prev,
-        [name]:value
-      }))
+const Login=()=>{
+    // Use the useContext hook to get the context value
+    const { user, login } = useContext(useUserContext);
+    // Define some state variables for the username and password inputs
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    // Define a function to handle the form submission
+    const handleSubmit = (e) => {
+      // Prevent the default behavior of the form
+      e.preventDefault();
+      // Use the login function from the context value to authenticate the user
+      login(username, password);
     }
-  
-    // Define a function to handle the submit of the form
-    function handleSubmit(event) {
-      
-      event.preventDefault();
-      
-    }
-  
-    // Return the JSX code that renders the form
     return (
-      <form onSubmit={handleSubmit} className="two-inputs-form">
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleChange}
-          placeholder="Enter something"
-        />
-        <input
-          type="text"
-          name="password"
-          value={user.password}
-          onChange={handleChange}
-          placeholder="Enter something else"
-        />
-        <button type="submit">Submit</button>
-      </form>
-    );
+      <div className="login-container">
+        <h1>Login</h1>
+        {user ? (
+          <Admin/>
+         ):(
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input type="submit" value="Login" />
+          </form>
+        )}
+        </div>)
   }
 const Navbar=()=>{
-    const {user}=useUser();
+    const {user}=useUserContext();
     
     return(
         <div className = 'nav'>
@@ -72,15 +63,17 @@ const Navbar=()=>{
                 <h4>Contact</h4>
                 </div>
                 <div>
-                {/*
+                {
+                  
+                  /*
                  <div>
                     <Link to={`Admin`}><h4>Dashboard</h4></Link>
                     <Outlet/>
                  </div>
                  */
                 }
-                 
-                 <userProvider><Login/></userProvider>
+                <userProvider><Login/></userProvider> 
+                
                 
                 
                 </div>
