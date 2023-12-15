@@ -1,85 +1,98 @@
-import { useUserContext, userProvider } from '../../routes/userContext';
-import { useState,useContext } from 'react';
+import { userContext,UserProvider } from '../../routes/userContext';
+import { useState,useContext,useEffect } from 'react';
 import './Navbar.css'
 import { Outlet, Link } from "react-router-dom";
-const Login=()=>{
-    // Use the useContext hook to get the context value
-    const { user, login } = useContext(useUserContext);
-    // Define some state variables for the username and password inputs
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    // Define a function to handle the form submission
-    const handleSubmit = (e) => {
-      // Prevent the default behavior of the form
-      e.preventDefault();
-      // Use the login function from the context value to authenticate the user
-      login(username, password);
+const Login = () => {
+  const { logged, setLogged } = useContext(userContext);
+  const [userData, setUserData] = useState({ name: '', password: '' });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (userData.name === 'ammar' && userData.password === '4331077') {
+      setLogged(true);
+      console.log('You are logged in');
+    } else {
+      console.log('Error');
     }
-    return (
-      <div className="login-container">
-        <h1>Login</h1>
-        {user ? (
-          <Admin/>
-         ):(
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input type="submit" value="Login" />
-          </form>
-        )}
-        </div>)
-  }
+  };
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
+  useEffect(() => {
+    console.log(userContext);
+  }, [userContext]);
+
+  return (
+    <div className="login-container">
+      {logged ? (
+        
+        <div > 'Welcome Ammar' <Link to={`Admin`}><h3>Dashboard</h3></Link><Outlet/></div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            id="name"
+            value={userData.name}
+            onChange={(e) =>
+              setUserData((prev) => ({ ...prev, name: e.target.value }))
+            }
+          />
+          <input
+            type="password"
+            id="password"
+            value={userData.password}
+            onChange={(e) =>
+              setUserData((prev) => ({ ...prev, password: e.target.value }))
+            }
+          />
+          <button type="submit">Login</button>
+        </form>
+      )}
+    </div>
+  );
+};
+
 const Navbar=()=>{
-    const {user}=useUserContext();
+    const {logged,setLogged}=useContext(userContext);
     
     return(
+        <UserProvider>
         <div className = 'nav'>
-            <div className='left-nav'>
-              
-              <Link to={`Home`}><h3>Logo</h3></Link>
-              <Outlet/>
-            </div>
-           
-            <div className='right-nav'>
-                <div>
-                <h4>Browse</h4>
-                </div>
-                <div>
-                <h4>About me</h4>
-                </div>
-                <div>
-                <h4>Contact</h4>
-                </div>
-                <div>
-                {
-                  
-                  /*
-                 <div>
-                    <Link to={`Admin`}><h4>Dashboard</h4></Link>
-                    <Outlet/>
-                 </div>
-                 */
-                }
-                <userProvider><Login/></userProvider> 
-                
-                
-                
-                </div>
-            </div>
-
+        <div className='left-nav'>
+          
+          <Link to={`Home`}><h3>Logo</h3></Link>
+          <Outlet/>
         </div>
+       
+        <div className='right-nav'>
+            <div>
+            <h4>Browse</h4>
+            </div>
+            <div>
+            <h4>About me</h4>
+            </div>
+            <div>
+            <h4>Contact</h4>
+            </div>
+            <div>
+            
+              
+             
+              <Login/>
+             
+             
+            
+            
+            
+            
+            
+            </div>
+        </div>
+
+    </div>
+        </UserProvider>
     )
 }
 export default Navbar
