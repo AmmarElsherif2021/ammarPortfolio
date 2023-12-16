@@ -7,37 +7,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // should be handled in a separate json file
-const libs=[
-    {
-        img:'../src/assets/js.svg',
-        stat:10
-    },
-    {
-        img:'../src/assets/react.svg',
-        stat:10
-    },
-    {
-        img:'../src/assets/python.svg',
-        stat:10
-    },
-    {
-        img:'../src/assets/mysql.svg',
-        stat:10
-    },
-    {
-        img:'../src/assets/pandas.svg',
-        stat:10
-    },
-    {
-        img:'../src/assets/flask.svg',
-        stat:10
-    }
 
-]
 const Home=()=>{
-
+    //projects
     const [projects,setProjects]=useState([]);
-    //fetch projects
+    //fetch projects ...............................................................  
     const fetchProjects = async () => {
         try {
         const response = await axios.get("src/routes/Admin/AdminData/projects.json");
@@ -49,7 +23,23 @@ const Home=()=>{
     useEffect(() => {
         fetchProjects(); 
       }, []);
-   
+
+     //libs ...............................................................
+    const [libs,setLibs]=useState([]);
+    //fetch libs
+    const fetchLibs = async () => {
+        try {
+        const response = await axios.get("src/routes/Admin/AdminData/libs.json");
+        setLibs(response.data);
+        } catch (error) {
+        console.error(error);
+        }
+    };
+    useEffect(() => {
+        fetchLibs(); 
+    }, []);
+
+    
     return(
         <div className='home'>
            <div className='home-intro'>

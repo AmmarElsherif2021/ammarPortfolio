@@ -4,24 +4,42 @@
     border-bottom: 3px black solid;
     position:fixed;
     top:0;
-    background: yellowgreen;
+    background: black;
+    color:white;
     justify-content:left;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 5fr ;
     justify-content: left;
     overflow:hidden;
     z-index: 100;
     
    
 }
+.avatar{
+    max-width: 50px;
+    position: absolute;
+    left:15px;
+    top:10px;
+}
+.left-nav{
+  
+    justify-content:baseline;
+}
 .right-nav{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
-.nav-login{
-    background: greenyellow;
-    max-width:15vw;
-    max-height: 10vh;
+
+.login{
+   
+    max-width:10vw;
+    max-height: 7vh;
     size: 10px;
+    display: flex;
+    flex-direction:row;
+    margin:5px;
+}
+input{
+    width:7vw;
+    margin: 5px;
 }

@@ -1,0 +1,33 @@
+[
+    {
+        "id":"1",
+        "img":"../src/assets/js.svg",
+        "stat":"10"
+    },
+    {
+        "id":"2",
+        "img":"../src/assets/react.svg",
+        "stat":"10"
+    },
+    {
+        "id":"3",
+        "img":"../src/assets/python.svg",
+        "stat":"10"
+    },
+    {
+        "id":"4",
+        "img":"../src/assets/mysql.svg",
+        "stat":"10"
+    },
+    {
+        "id":"5",
+        "img":"../src/assets/pandas.svg",
+        "stat":"10"
+    },
+    {
+        "id":"6",
+        "img":"../src/assets/flask.svg",
+        "stat":"10"
+    }
+
+]

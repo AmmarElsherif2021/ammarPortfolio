@@ -41,15 +41,21 @@ const Admin=()=>{
     }
   };
 
-  //fetch libs
-  const fetchLibs = async () => {
-    try {
-      const response = await axios.get("src/routes/Admin/AdminData/projects.json");
-      setLibs(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
+  
+    //fetch libs
+    const fetchLibs = async () => {
+        try {
+        const response = await axios.get("src/routes/Admin/AdminData/libs.json");
+        setLibs(response.data);
+        } catch (error) {
+        console.error(error);
+        }
+    };
+    useEffect(() => {
+        fetchLibs(); 
+    }, []);
+
   //handle popup ops:
   
   const handleCreate=(item)=>{
@@ -123,7 +129,7 @@ const Admin=()=>{
             <h1>This is your admin dashboard</h1>
             </div>
             <div>
-            <Strip/>
+            <Strip libsList={[...libs]}/>
             </div>
             
             <div className='admin-links'>

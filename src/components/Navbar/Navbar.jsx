@@ -2,6 +2,7 @@ import { userContext,UserProvider } from '../../routes/userContext';
 import { useState,useContext,useEffect } from 'react';
 import './Navbar.css'
 import { Outlet, Link } from "react-router-dom";
+import Logo from '../../../src/assets/Avatar.svg'
 const Login = () => {
   const { logged, setLogged } = useContext(userContext);
   const [userData, setUserData] = useState({ name: '', password: '' });
@@ -28,9 +29,9 @@ const Login = () => {
     <div className="login-container">
       {logged ? (
         
-        <div > 'Welcome Ammar' <Link to={`Admin`}><h3>Dashboard</h3></Link><Outlet/></div>
+        <div className='login' > <Link to={`Admin`}><h3>Dashboard</h3></Link><Outlet/></div>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form className='login' onSubmit={handleSubmit}>
           <input
             type="text"
             id="name"
@@ -62,7 +63,7 @@ const Navbar=()=>{
         <div className = 'nav'>
         <div className='left-nav'>
           
-          <Link to={`Home`}><h3>Logo</h3></Link>
+          <Link to={`Home`}><img className='avatar' src={Logo}/></Link>
           <Outlet/>
         </div>
        

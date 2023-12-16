@@ -3,7 +3,7 @@
   
 }
 .home-intro {
-    height:88vh;
+    height:90vh;
     margin-top:12vh;
     display: grid;
     grid-template-rows: 1fr 10fr ;
@@ -11,7 +11,7 @@
   }
   .home-strips {
     height:90vh;
-    
+    border-top: black dotted 5px;
     display: grid;
     grid-template-rows: 3fr 1fr ;
     

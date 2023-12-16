@@ -7,9 +7,12 @@
   margin: 0 auto;
 
   text-align: center;
-  background: rgb(111, 185, 214);
+  background: none;
 }
-
+@font-face {
+  font-family: 'Cairo', sans-serif;
+font-family: 'Saira Condensed', sans-serif;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
