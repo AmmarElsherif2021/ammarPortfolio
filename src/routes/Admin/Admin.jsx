@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 import Card from '../../components/Card/Card'
+import ListOverview from '../ListOverview/ListOverview';
 import Strip from '../../components/Strip/Strip'
 //import AddProject from './AddProject/AddProject';
 //import Dialogue from './Dialogue/Dialogue';
@@ -20,14 +21,18 @@ const uniqueId = () => {
 
 const Admin=()=>{
  
+  //projects data
   const [projects,setProjects]=useState([]);
+  //methods and libraries data
+  const [libs,setLibs]=useState([]);
  
   //get projects from projects.json
   useEffect(() => {
-    fetchData(); 
+    fetchProjects(); 
   }, []);
   useEffect(()=>console.log('refresh projects list'),[projects]);
-  const fetchData = async () => {
+  //fetch projects
+  const fetchProjects = async () => {
     try {
       const response = await axios.get("src/routes/Admin/AdminData/projects.json");
       setProjects(response.data);
@@ -36,6 +41,15 @@ const Admin=()=>{
     }
   };
 
+  //fetch libs
+  const fetchLibs = async () => {
+    try {
+      const response = await axios.get("src/routes/Admin/AdminData/projects.json");
+      setLibs(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   //handle popup ops:
   
   const handleCreate=(item)=>{
@@ -100,14 +114,11 @@ const Admin=()=>{
             <div>
                <h1>This is your admin dashboard</h1>
             </div>
-            <div className='admin-grid1'>
-              {projects && projects.map((project,index)=>{
-                return(
-                  <div key={index}><Card key={project.pid} project_title={project.project_title} discription={project.discription} img={project.img}/></div>
-                )
-              })}
-              <div className='admin-grid1-add'> <Popup popToParent={popToParent}/> </div>
+            <div>
+            <ListOverview projectsList={[...projects]}/>
+            
             </div>
+            <Popup popToParent={popToParent}/> 
             <div>
             <h1>This is your admin dashboard</h1>
             </div>

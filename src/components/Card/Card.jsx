@@ -10,7 +10,7 @@ const Card=(props)=>{
             <div className='card-p'>
             <h3>{props.title}</h3>
             <p>{props.discription}</p>
-            
+            <p><a href={props.link}>link</a><br/><a href={props.github}>github</a></p>
             </div>
         </div>
     )
