@@ -1,5 +1,5 @@
 import './Card.css'
-import unkownProj from '../../assets/unkownProj.png'
+import unkownProj from '../../assets/folder.svg'
 const Card=(props)=>{
    
     return(

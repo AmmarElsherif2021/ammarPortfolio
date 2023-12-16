@@ -1,11 +1,9 @@
 .strip{
     width:100%;
     height:auto;
-    background: orangered;
+    background:white;
     display:grid;
-    grid-template-columns: repeat(5,1fr);
-}
-.stack{
-    background: yellow;
-    margin:2px;
+    grid-template-columns: repeat(6,1fr);
+    justify-content: center;
+    align-items: center;
 }

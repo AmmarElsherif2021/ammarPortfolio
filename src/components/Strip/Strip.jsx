@@ -1,26 +1,16 @@
 import './Strip.css'
-const Strip=()=>{
+import Bubble from '../Bubble/Bubble'
+const Strip=(props)=>{
     return(
         <div className='strip'>
-            <div className='stack'>
-                <h2>stack#</h2>
-            </div>
-            <div className='stack'>
-                <h2>stack#</h2>
-            </div>
-            <div className='stack'>
-                <h2>stack#</h2>
-            </div>
-            <div className='stack'>
-                <h2>stack#</h2>
-            </div>
-            <div className='stack'>
-                <h2>stack#</h2>
+           { props.libsList.map((x)=>(
+                <div><Bubble img={x.img} stat={x.stat}/></div>
+            ))}
             </div>
          
             
 
-        </div>
+        
     )
 }
 export default Strip

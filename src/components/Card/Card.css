@@ -1,6 +1,6 @@
 .card{
     position:relative;
-    background: rgb(59, 55, 55);
+    background:white;
     display:grid;
     min-height:35vh;
     grid-template-rows: 5fr 1fr;
@@ -9,7 +9,7 @@
 }
 .card-img{
  
-    background: rgb(136, 190, 172);
+    background: none;
     position: absolute;
     top:0;
     left:0;
