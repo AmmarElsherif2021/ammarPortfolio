@@ -1,6 +1,6 @@
 .card{
     position:relative;
-    background:white;
+    background:none;
     display:grid;
     min-height:35vh;
     grid-template-rows: 5fr 1fr;
@@ -24,7 +24,7 @@
 }
 
 .card-p {
-    background: none;
+    background:black;
     position: absolute;
     top:0;
     left:0;
@@ -43,7 +43,7 @@
   }
   
   .card-p:hover {
-    opacity: 0.8;
+    opacity: 0.9;
     background: rgb(15, 15, 15);
     font:white;
   }

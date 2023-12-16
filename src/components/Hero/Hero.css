@@ -13,7 +13,7 @@
     background: none;
     margin:5px;
    
-    width:50vw;
+    width:35vw;
   
     justify-content: baseline;
     position: absolute;
@@ -25,17 +25,19 @@
     width:50vw;
     background:none;
     margin: 5px;
-    
+   
+   
 
 }
 .typewriter {
     overflow: hidden;
     border-right: .15em solid orange;
     white-space: nowrap;
-    margin: 0 auto;
+    margin: 0 ;
     letter-spacing: .15em;
     opacity: 0;
-    animation: typing 3.5s steps(40, end) forwards, blink-caret .5s step-end infinite;
+    width: auto;
+    animation: typing 2.5s steps(40, end) forwards, blink-caret .5s step-end infinite;
   }
   
   @keyframes typing {
@@ -45,6 +47,9 @@
   
   @keyframes blink-caret {
     from, to { border-color: transparent }
-    50% { border-color: orange; }
+    50% { border-color:none}
   }
+  
+  
+
   

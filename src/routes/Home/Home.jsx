@@ -59,7 +59,7 @@ const Home=()=>{
            </div>
            <div className='home-list-overview'>
                 <div>
-                    <h1>Here a list of projects I worked on will be added</h1>
+                    <h1>Here is a list of projects I worked on and will be added</h1>
                 </div>
                 <div>
                  <ListOverview projectsList={[...projects]}/>
