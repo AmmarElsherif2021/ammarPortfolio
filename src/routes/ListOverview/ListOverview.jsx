@@ -7,7 +7,7 @@ const ListOverview=(props)=>{
             {
                 props.projectsList && props.projectsList.map((x) => {
                   return(
-                    <Card key={x.pid} title={x.project_title} discription={x.discription} img={x.img} link={x.project_link} github={x.github}/>
+                    <Card key={x.pid} title={x.project_title} discription={x.discription} img={x.img} gif={x.gif} link={x.project_link} github={x.github}/>
                   )
                 })
               }

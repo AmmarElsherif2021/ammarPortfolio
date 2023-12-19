@@ -1,11 +1,22 @@
 import './Card.css'
 import unkownProj from '../../assets/folder.svg'
+import unkownGif from '../../assets/unknownGif.gif'
+
+import { useState } from 'react'
 const Card=(props)=>{
-   
+    const [isHovered,setIsHovered]=useState(false);
+    const handleHover =()=>{
+        
+    }
     return(
-        <div className='card'>
+        <div className='card'  
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}>
             <div className='card-img'>
-                <img className='card-img' src={props.img?`${props.img}`:unkownProj}/>
+                {  isHovered? <img className='card-img' src={props.gif?`${props.gif}`:unkownGif}/>
+                    :
+                    <img className='card-img' src={props.img?`${props.img}`:unkownProj}/>
+                }
             </div>
             <div className='card-p'>
             <h3>{props.title}</h3>

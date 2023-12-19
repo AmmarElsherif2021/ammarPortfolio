@@ -1,0 +1,33 @@
+Report created: 
+	12/17/2023	10:35:42 PM
+
+Project name: ammar. copy.aep
+
+Source files collected to: 
+	D:\study\ammar\ammar. copy folder
+
+Source files collected: All
+
+Collected comps:  
+	Comp 1
+	ammar
+	ammar 2
+	Pre-comp 1
+	all
+	
+Number of collected files:  2
+
+Size of collected files:  199 KB
+
+Collected source files: 
+	D:\study\ammar-01.png
+	D:\study\ammar.ai
+	
+Rendering plug-ins:
+	Classic 3D
+	
+Effects used:  1
+
+Effect:  Posterize Time
+	
+
