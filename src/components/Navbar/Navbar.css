@@ -1,0 +1,80 @@
+.nav {
+    height: 12vh;
+    width: 100%;
+    border-bottom: 3px black solid;
+    position: fixed;
+    top: 0;
+    background: rgb(0, 0, 0);
+    color: white;
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    z-index: 100;
+
+
+}
+
+.avatar {
+    max-width: 50px;
+
+}
+
+.login {
+
+    max-width: 10vw;
+    max-height: 7vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+input {
+    min-width: 7vw;
+    height: 6vh;
+    margin: 5px;
+}
+
+@media screen and (max-width: 900px) {
+    .nav {
+        position: absolute;
+        flex-direction: column;
+        min-height: 99vh;
+    }
+
+    .avatar {
+        max-width: 10vw;
+        min-width: 60px;
+    }
+
+    .toggle {
+        background: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 5vw;
+        max-width: 10vw;
+        max-height: 10vh;
+    }
+
+    .login {
+        max-width: 80vw;
+        height: 10vh;
+        margin-top: 2vh;
+        flex-direction: column;
+    }
+
+    input {
+        min-width: 15vw;
+        min-height: 4vh;
+        margin-bottom: 2vh;
+        justify-content: space-around;
+    }
+
+}

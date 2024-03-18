@@ -1,0 +1,92 @@
+.card {
+  position: relative;
+  background: orange;
+
+  display: grid;
+  min-height: 35vh;
+
+  grid-template-rows: 5fr 1fr;
+  margin: 1px;
+  padding: 4px;
+  font: white;
+}
+
+.card-img {
+
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  max-height: 40vh;
+  object-fit: cover;
+
+}
+
+.card-p {
+  background-color: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 40vh;
+  object-fit: cover;
+  font: white;
+
+  opacity: 0;
+  -webkit-animation: flipinx 1.5s ease 0s 1 normal;
+  -moz-animation: flipinx 1.5s ease 0s 1 normal;
+  -ms-animation: flipinx 1.5s ease 0s 1 normal;
+  animation: flipinx 1.5s ease 0s 1 normal;
+}
+
+.card-p:hover {
+  opacity: 1;
+  background: rgb(15, 15, 15);
+  font: white;
+}
+
+@-webkit-keyframes flipinx {
+  0% {
+    opacity: 0;
+    -webkit-transform: perspective(400px) rotateX(90deg);
+  }
+
+  40% {
+    -webkit-transform: perspective(400px) rotateX(-10deg);
+  }
+
+  70% {
+    -webkit-transform: perspective(400px) rotateX(10deg);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: perspective(400px) rotateX(0deg);
+  }
+}
+
+@keyframes flipinx {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateX(90deg);
+  }
+
+  40% {
+    transform: perspective(400px) rotateX(-10deg);
+  }
+
+  70% {
+    transform: perspective(400px) rotateX(10deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
+}
