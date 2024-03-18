@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .hero {
   width: 100%;
   height: 90vh;
@@ -68,3 +69,61 @@
     border-color: none
   }
 }
+=======
+.hero{
+    width:100%;
+    height:90vh;
+    background:none;
+    margin: 5px;
+    display:grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 1fr;
+    justify-content: flex-start;
+    text-align: left;
+}
+.hero-img{
+    background: none;
+    margin:5px;
+   
+    width:35vw;
+  
+    justify-content: baseline;
+    position: absolute;
+    left:0;
+    top:100px
+    
+}
+.hero-text{
+    color: #000000;
+    width:50vw;
+    background:none;
+    margin: 5px;
+   
+   
+
+}
+.typewriter {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    margin: 0 ;
+    letter-spacing: .15em;
+    opacity: 0;
+    width: auto;
+    animation: typing 2.5s steps(40, end) forwards, blink-caret .5s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from {opacity: 0; width: 0 }
+    to {opacity: 1; width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color:none}
+  }
+  
+  
+
+  
+>>>>>>> 89d6d93dc339359dac1cdd0c06145a4c98440a7e
