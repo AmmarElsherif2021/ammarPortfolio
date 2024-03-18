@@ -15,12 +15,12 @@
   background: none;
   margin-top: 12vh;
   margin-bottom: 12vh;
-  width: 45vw;
+  width: 35vw;
   border: none;
   justify-content: baseline;
   position: absolute;
   left: 0;
-  top: 100px
+  top: 8vh
 }
 
 .hero-text {

@@ -1,6 +1,7 @@
 import { userContext, UserProvider } from '../../routes/userContext';
 import { useState, useContext, useEffect } from 'react';
 import './Navbar.css'
+import useWindowDimensions from '../../routes/windowContext';
 import { Outlet, Link } from "react-router-dom";
 import Logo from '../../../src/assets/Avatar.svg';
 import toggleLogo from '../../../src/assets/menu.svg'
@@ -8,7 +9,7 @@ import toggleLogo from '../../../src/assets/menu.svg'
 const Login = () => {
   const { logged, setLogged } = useContext(userContext);
   const [userData, setUserData] = useState({ name: '', password: '' });
-  const [toggled, setToggeled] = useState(false);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +39,7 @@ const Login = () => {
           <input
             type="text"
             id="name"
+            placeholder='name'
             value={userData.name}
             onChange={(e) =>
               setUserData((prev) => ({ ...prev, name: e.target.value }))
@@ -46,12 +48,13 @@ const Login = () => {
           <input
             type="password"
             id="password"
+            placeholder='password'
             value={userData.password}
             onChange={(e) =>
               setUserData((prev) => ({ ...prev, password: e.target.value }))
             }
           />
-          <button type="submit">Login</button>
+          <button className='login-btn' type="submit">Login</button>
         </form>
       )}
     </div>
@@ -59,27 +62,35 @@ const Login = () => {
 };
 
 const Navbar = () => {
+  const { width, height } = useWindowDimensions();
   const { logged, setLogged } = useContext(userContext);
-
+  const [toggled, setToggeled] = useState(false);
   return (
     <UserProvider>
-      <div className='nav'>
+      <div className={width <= 900 && toggled ? 'nav-v' : 'nav'}>
         <div >
 
           <Link to={`/`}><img className='avatar' src={Logo} /></Link>
           <Outlet />
-          {window.innerWidth <= 900 && <div className='toggle'><img className='menu' src={toggleLogo} /></div>}
         </div>
-        <div>
-          <h4>Browse</h4>
-        </div>
-        <div>
-          <h4>About me</h4>
-        </div>
-        <div>
-          <h4>Contact</h4>
-        </div>
-        <Login />
+        {width <= 900 ? <div className='toggle' onClick={() => setToggeled((prev) => !prev)}><img className='menu-img' src={toggleLogo} /></div> : <div></div>}
+        {(width <= 900 && toggled) || width > 900 ?
+
+          <div className='menu' >
+            <div>
+              <h4>Browse</h4>
+            </div>
+            <div>
+              <h4>About me</h4>
+            </div>
+            <div>
+              <h4>Contact</h4>
+            </div>
+            <Login />
+
+          </div> : <div></div>}
+
+
 
 
       </div>
