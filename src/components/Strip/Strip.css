@@ -1,9 +1,23 @@
-.strip{
-    width:100%;
-    height:auto;
-    background:white;
-    display:grid;
-    grid-template-columns: repeat(6,1fr);
-    justify-content: center;
+.strip {
+    width: 85vw;
+    height: 65vh;
+    background: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
     align-items: center;
+    overflow-x: auto;
+    padding-top: 5vh;
+}
+
+.strip-rail {
+    width: 70vw;
+
+    background: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: hidden;
+    margin: 2vw;
 }
