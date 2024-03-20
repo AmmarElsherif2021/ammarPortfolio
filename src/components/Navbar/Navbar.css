@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .nav {
     height: 12vh;
     width: 100%;
@@ -129,50 +128,4 @@ input {
         justify-content: space-around;
     }
 
-=======
-.nav{
-    height:12vh;
-    width:100%;
-    border-bottom: 3px black solid;
-    position:fixed;
-    top:0;
-    background: black;
-    color:white;
-    justify-content:left;
-    display: grid;
-    grid-template-columns: 2fr 5fr ;
-    justify-content: left;
-    overflow:hidden;
-    z-index: 100;
-    
-   
-}
-.avatar{
-    max-width: 50px;
-    position: absolute;
-    left:15px;
-    top:10px;
-}
-.left-nav{
-  
-    justify-content:baseline;
-}
-.right-nav{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.login{
-   
-    max-width:10vw;
-    max-height: 7vh;
-    size: 10px;
-    display: flex;
-    flex-direction:row;
-    margin:5px;
-}
-input{
-    width:7vw;
-    margin: 5px;
->>>>>>> 89d6d93dc339359dac1cdd0c06145a4c98440a7e
 }
