@@ -6,7 +6,7 @@
 }
 
 .home-intro {
-  min-height: 90vh;
+
   margin-top: 12vh;
   display: grid;
 
@@ -14,17 +14,18 @@
 }
 
 .home-strips {
-  height: 90vh;
+
   border-top: black dotted 5px;
-  display: grid;
-  grid-template-rows: 3fr 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
 }
 
 .home-list-overview {
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr 5fr;
+
+  display: flex;
+  flex-direction: column;
 
 }
 

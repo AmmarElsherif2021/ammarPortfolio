@@ -8,78 +8,90 @@ import axios from "axios";
 
 // should be handled in a separate json file
 
-const Home=()=>{
+const Home = () => {
     //projects
-    const [projects,setProjects]=useState([]);
+    const [projects, setProjects] = useState([]);
     //fetch projects ...............................................................  
     const fetchProjects = async () => {
         try {
-        const response = await axios.get("src/routes/Admin/AdminData/projects.json");
-        setProjects(response.data);
+            const response = await axios.get("src/routes/Admin/AdminData/projects.json");
+            setProjects(response.data);
         } catch (error) {
-        console.error(error);
+            console.error(error);
         }
     };
     useEffect(() => {
-        fetchProjects(); 
-      }, []);
+        fetchProjects();
+    }, []);
 
-     //libs ...............................................................
-    const [libs,setLibs]=useState([]);
+    //libs ...............................................................
+    const [libs, setLibs] = useState([]);
     //fetch libs
     const fetchLibs = async () => {
         try {
-        const response = await axios.get("src/routes/Admin/AdminData/libs.json");
-        setLibs(response.data);
+            const response = await axios.get("src/routes/Admin/AdminData/libs.json");
+            setLibs(response.data);
         } catch (error) {
-        console.error(error);
+            console.error(error);
         }
     };
     useEffect(() => {
-        fetchLibs(); 
+        fetchLibs();
     }, []);
 
-    
-    return(
+
+    return (
         <div className='home'>
-           <div className='home-intro'>
-               
+            <div className='home-intro'>
+
                 <div>
-                    <Hero/>
+                    <Hero />
                 </div>
-           </div>
-           <div className='home-strips'>
+            </div>
+            <div className='home-strips'>
                 <div>
                     <h1>lorem ipsum</h1>
                     <p> kjgjdk gkdc,ncd jklc jklbbad.skjbjkbvdjkkb kb,jdvvjk</p>
                 </div>
                 <div>
-                     <Strip libsList={[...libs]}/>
+                    <Strip libsList={[...libs]} />
                 </div>
-           </div>
-           <div className='home-list-overview'>
+            </div>
+            <div className='home-list-overview'>
                 <div>
                     <h1>Here is a list of projects I worked on and will be added</h1>
                 </div>
                 <div>
-                 <ListOverview projectsList={[...projects]}/>
+                    <ListOverview projectsList={[...projects]} />
                 </div>
-           </div>
-           <div className='home-footer'>
+            </div>
+            <div>
+                <h1> Activities</h1>
+
+                <h3>Date , link , details</h3>
+                <h1>.................................</h1>
+
+            </div>
+            <div>
+                <h1>Resources</h1>
+                <h3>img,brief,link</h3>
+                <h1>.................................</h1>
+            </div>
+            <div className='home-footer'>
                 <div>
                     <h4>Welcome to Ammar portfolio</h4>
                 </div>
                 <div>
                     <ul>
-                     <li>Blogs</li>
-                     <li>Contacts</li>
-                     <li>FAQs</li>
+                        <li>Blogs</li>
+                        <li>Contacts</li>
+                        <li>FAQs</li>
                     </ul>
                 </div>
-           </div>
-            
-         
-         
+            </div>
+
+
+
         </div>
     )
 }
