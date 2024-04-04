@@ -5,11 +5,11 @@ const Strip = (props) => {
     const [scrollPosition, setScrollPosition] = useState(0);
 
     const scrollLeft = () => {
-        setScrollPosition(scrollPosition - 800);
+        setScrollPosition(scrollPosition - 100);
     };
 
     const scrollRight = () => {
-        setScrollPosition(scrollPosition + 800);
+        setScrollPosition(scrollPosition + 100);
     };
 
     useEffect(() => {
@@ -20,14 +20,14 @@ const Strip = (props) => {
     }, [scrollPosition]);
     return (
         <div className='strip'>
-            <button onPointerLeave={scrollLeft}>{'<'}</button>
+            <button onPointerOver={scrollLeft}>{'<'}</button>
             <div className='strip-rail'>
                 {props.libsList.map((x) => (
                     <div><Bubble img={x.img} stat={x.stat} /></div>
 
                 ))}
             </div>
-            <button onPointerLeave={scrollRight}>{'>'}</button>
+            <button onPointerOver={scrollRight}>{'>'}</button>
         </div>
 
 
