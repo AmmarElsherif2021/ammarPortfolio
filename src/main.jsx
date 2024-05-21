@@ -19,33 +19,36 @@ import ListOverview from './routes/ListOverview/ListOverview.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
+    element: <Root />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "Home",
         element: <Home />,
-    
       },
-     
+
+
     ],
   },
   {
     path: "Admin",
-    element: <Admin/>,
+    element: <Admin />,
     children: [
       {
         path: "Popup",
         element: <Popup />,
-    
+
       },
-      
+      {
+
+      }
+
     ],
   },
- 
+
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

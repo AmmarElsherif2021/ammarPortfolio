@@ -1,3 +1,10 @@
+//interns@logic-designs.com;
+//venture.studio@athareg.com;
+// hr@uranium-corp.com intern backend
+//
+
+
+
 import Navbar from "../../components/Navbar/Navbar";
 import Hero from "../../components/Hero/Hero";
 import Strip from "../../components/Strip/Strip";

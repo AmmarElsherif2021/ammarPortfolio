@@ -1,15 +1,20 @@
-import './Strip.css'
-import Bubble from '../Bubble/Bubble'
-import { useState, useEffect } from 'react';
+import './Strip.css';
+import Bubble from '../Bubble/Bubble';
+import { useState, useEffect, useRef } from 'react';
+
 const Strip = (props) => {
     const [scrollPosition, setScrollPosition] = useState(0);
+    const scrollInterval = useRef(null);
 
-    const scrollLeft = () => {
-        setScrollPosition(scrollPosition - 100);
+    const startScrolling = (direction) => {
+        stopScrolling(); // Clear any existing intervals
+        scrollInterval.current = setInterval(() => {
+            setScrollPosition((prevPosition) => prevPosition + direction * 100); // Adjust the value for speed
+        }, 50); // Adjust the interval for speed
     };
 
-    const scrollRight = () => {
-        setScrollPosition(scrollPosition + 100);
+    const stopScrolling = () => {
+        clearInterval(scrollInterval.current);
     };
 
     useEffect(() => {
@@ -18,21 +23,33 @@ const Strip = (props) => {
             parent.scrollLeft = scrollPosition;
         }
     }, [scrollPosition]);
+
+    useEffect(() => {
+        // Clean up the interval on component unmount
+        return () => stopScrolling();
+    }, []);
+
     return (
         <div className='strip'>
-            <button onPointerOver={scrollLeft}>{'<'}</button>
+            <button
+                onPointerOver={() => startScrolling(-1)}
+                onPointerOut={stopScrolling}
+            >
+                {'<'}
+            </button>
             <div className='strip-rail'>
-                {props.libsList.map((x) => (
-                    <div><Bubble img={x.img} stat={x.stat} /></div>
-
+                {props.libsList.map((x, index) => (
+                    <Bubble key={index} img={x.img} stat={x.stat} />
                 ))}
             </div>
-            <button onPointerOver={scrollRight}>{'>'}</button>
+            <button
+                onPointerOver={() => startScrolling(1)}
+                onPointerOut={stopScrolling}
+            >
+                {'>'}
+            </button>
         </div>
+    );
+};
 
-
-
-
-    )
-}
-export default Strip
+export default Strip;
