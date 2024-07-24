@@ -6,7 +6,7 @@
   min-height: 35vh;
 
   grid-template-rows: 5fr 1fr;
-  margin: 1px;
+  margin: 5px;
   padding: 4px;
   font: white;
 }
