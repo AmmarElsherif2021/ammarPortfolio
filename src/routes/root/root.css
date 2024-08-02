@@ -1,3 +1,5 @@
-.root{
-    width:100vw;
+.root {
+  width: 100vw;
+  position: absolute;
+  left: 0;
 }

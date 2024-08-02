@@ -1,0 +1,11 @@
+.nav-item {
+  letter-spacing: 3px;
+  font-size: 25px;
+  font-weight: 400;
+  transform: scaleX(2);
+  border-bottom: solid rgb(139, 139, 139) 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

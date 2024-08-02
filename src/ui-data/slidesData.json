@@ -1,0 +1,51 @@
+[
+  {
+    "index": 0,
+    "title": "THE HERITAGE COLLECTION",
+    "subTitle": "PREMIUM COLLECTION",
+    "imgSrc": [
+      "https://focal-theme-carbon.myshopify.com/cdn/shop/files/heritage-lp-3.jpg?v=1630492874&width=1400"
+    ],
+    "btnTxt1": "SHOP",
+    "btnTxt2": "LEARN MORE",
+    "textAlign": "left",
+    "isActive": "true"
+  },
+  {
+    "index": 1,
+    "title": "SAGE COLLECTION",
+    "subTitle": "MEET THE",
+    "imgSrc": [
+      "https://focal-theme-carbon.myshopify.com/cdn/shop/files/sage1-desktop.jpg?v=1630492840&width=700",
+      "https://focal-theme-carbon.myshopify.com/cdn/shop/files/sage2-desktop.jpg?v=1630492847&width=700"
+    ],
+    "btnTxt1": "LEARN MORE",
+    "btnTxt2": "",
+    "textAlign": "center",
+    "isActive": "false"
+  },
+  {
+    "index": 2,
+    "title": "NATIVE UNION TOM X DIXON",
+    "subTitle": "COLLABORATION",
+    "imgSrc": [
+      "https://focal-theme-carbon.myshopify.com/cdn/shop/files/tom-dixon-lp-tile-1.jpg?v=1630492908&width=1400"
+    ],
+    "btnTxt1": "LEARN MORE",
+    "btnTxt2": "",
+    "textAlign": "left",
+    "isActive": "false"
+  },
+  {
+    "index": 3,
+    "title": "TIHE MAISON KITSUNE' COLLLAB",
+    "subTitle": "NEW IN",
+    "imgSrc": [
+      "https://focal-theme-carbon.myshopify.com/cdn/shop/files/mk-lp-tile-1.jpg?v=1630493139&width=1400"
+    ],
+    "btnTxt1": "LEARN MORE",
+    "btnTxt2": "",
+    "textAlign": "left",
+    "isActive": "false"
+  }
+]

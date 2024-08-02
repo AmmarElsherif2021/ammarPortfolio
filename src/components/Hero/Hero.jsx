@@ -1,45 +1,73 @@
-import './Hero.css'
-import heroImg from '../../assets/ammar/hero2.gif'
-import { useState } from 'react';
-const textArr = [`The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `,
-    `The purpose of using Lorem  Ipsum is thaj bla `
+import "./Hero.css";
+import heroImg from "../../assets/ammar/hero2.gif";
+import { useState } from "react";
+const textArr = [
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
+  `The purpose of using Lorem  Ipsum is thaj bla `,
 ];
 
-const Hero = () => {
+const links = [
+  { name: "Open roles", href: "#" },
+  { name: "Internship program", href: "#" },
+  { name: "Our values", href: "#" },
+  { name: "Meet our leadership", href: "#" },
+];
+const stats = [
+  { name: "Offices worldwide", value: "12" },
+  { name: "Full-time colleagues", value: "300+" },
+  { name: "Hours per week", value: "40" },
+  { name: "Paid time off", value: "Unlimited" },
+];
 
-    return (
-
-        <div className='hero'>
-
-            <div >
-                <img className='hero-img' src={heroImg} />
-            </div>
-            <div className='hero-text'>
-                <div className="typewriter" style={{ animationDelay: 0 }}>
-                    <h1>Hero text </h1>
-                </div>
-
-
-                {textArr.map((x, i) => {
-
-                    return (
-                        <div className="typewriter" style={{ animationDelay: `${(i * 2.5) + 2.5}s` }}> The purpose {i} of using Lorem  Ipsum is that bla
-                        </div>
-                    )
-                })}
-            </div>
-
+export default function Hero() {
+  return (
+    <section className="text-gray-600 body-font bg-white dark:bg-slate-900">
+      <div className="container mx-auto flex md:px-24 md:py-10 md:flex-row flex-col items-center">
+        <div className="lg:flex-grow mt-5 md:mt-0 md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+          <h1 className="text-2xl font-extrabold leading-9 tracking-tight mb-3 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">
+            Title of Project
+          </h1>
+          <p
+            className="mb-8 md:pl-0 pl-2 pr-2 leading-relaxed dark:text-gray-300 relative font-mono
+before:absolute before:inset-0 before:bg-white
+before:animate-typewriter"
+          >
+            Short description here, Short description here Short description
+            here Short description here Short description here Short description
+            here.
+          </p>
+          <div className="flex justify-center">
+            <a
+              href="#"
+              className="inline-flex text-white bg-emerald-600 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded text-lg"
+            >
+              Start Exploring
+            </a>
+            <a
+              href="#"
+              className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+            >
+              Read articles
+            </a>
+          </div>
         </div>
-
-    )
+        <div className="lg:max-w-lg lg:w-full mb-5 md:mb-0 md:w-1/2 w-3/6">
+          <img
+            className="object-cover object-center rounded"
+            alt="hero"
+            src="https://www.svgrepo.com/show/490900/hot-air-balloon.svg"
+          />
+        </div>
+      </div>
+    </section>
+  );
 }
-export default Hero

@@ -1,8 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        typewriter: "typewriter 2s steps(30) forwards",
+      },
+      keyframes: {
+        typewriter: {
+          to: {
+            left: "100%",
+          },
+        },
+      },
+    },
   },
   plugins: [],
 };

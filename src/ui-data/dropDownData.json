@@ -1,0 +1,89 @@
+[
+  {
+    "linkname": "Shop by Category",
+    "data": [
+      {
+        "header": "PROTECT & CARRY",
+        "paragraph": "",
+        "list": ["iPhone Cases", "AirPods Cases", "Sleeves", "Accessories"]
+      },
+      {
+        "header": "CABLES",
+        "paragraph": "",
+        "list": ["USB-A", "USB-C", "Lightning", "Apple Watch", "View All"]
+      },
+      {
+        "header": "ITEM1 NAME",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/iphone-cases.jpg?v=1630492487&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory   ",
+        "list": []
+      },
+      {
+        "header": "ITEM2",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/wireless-chargers.jpg?v=1630492508&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory   ",
+        "list": []
+      },
+      {
+        "header": "BUNDLES",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/bundles.jpg?v=1630492520&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory   ",
+        "list": []
+      }
+    ]
+  },
+  {
+    "linkname": "Shop by Device",
+    "data": [
+      {
+        "header": "PROTECT & CARRY",
+        "paragraph": "",
+        "list": ["iPhone Cases", "AirPods Cases", "Sleeves", "Accessories"]
+      },
+      {
+        "header": "CABLES",
+        "paragraph": "",
+        "list": ["USB-A", "USB-C", "Lightning", "Apple Watch", "View All"]
+      },
+      {
+        "header": "BUNDLES",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/iphones.jpg?v=1630492567&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory   ",
+        "list": []
+      }
+    ]
+  },
+  {
+    "linkname": "Collections",
+    "data": [
+      {
+        "header": "PROTECT & CARRY",
+        "paragraph": "",
+        "list": ["iPhone Cases", "AirPods Cases", "Sleeves", "Accessories"]
+      },
+      {
+        "header": "CABLES",
+        "paragraph": "",
+        "list": ["USB-A", "USB-C", "Lightning", "Apple Watch", "View All"]
+      },
+      {
+        "header": "ITEM1 NAME",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/heritage-collection.jpg?v=1630492786&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory  ",
+        "list": []
+      },
+      {
+        "header": "ITEM2 ",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/la-boite-concept.jpg?v=1630492796&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory   ",
+        "list": []
+      },
+      {
+        "header": "BUNDLES",
+        "photo": "https://focal-theme-carbon.myshopify.com/cdn/shop/files/tom-dixon.jpg?v=1630492808&width=560",
+        "paragraph": "This is a placeholder text, the moderator can modify all json data applied in ui-data directory   ",
+        "list": []
+      }
+    ]
+  }
+]

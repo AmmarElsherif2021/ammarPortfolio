@@ -1,20 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import Root from './routes/root/root.jsx'
-import ErrorPage from './routes/error.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Home from './routes/Home/Home.jsx'
-import Admin from './routes/Admin/Admin.jsx'
+import "./index.css";
+import Root from "./routes/root/root.jsx";
+import ErrorPage from "./routes/error.jsx";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./routes/Home/Home.jsx";
+import Admin from "./routes/Admin/Admin.jsx";
 //import Dialogue from './routes/Admin/Dialogue/Dialogue.jsx'
 
-import Popup from './routes/Admin/Popup/Popup.jsx'
-import ListOverview from './routes/ListOverview/ListOverview.jsx'
+import Popup from "./routes/Admin/Popup/Popup.jsx";
+//import ListOverview from "./routes/ListOverview/ListOverview.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,8 +23,6 @@ const router = createBrowserRouter([
         path: "Home",
         element: <Home />,
       },
-
-
     ],
   },
   {
@@ -37,18 +32,13 @@ const router = createBrowserRouter([
       {
         path: "Popup",
         element: <Popup />,
-
       },
-      {
-
-      }
-
+      {},
     ],
   },
-
 ]);
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
