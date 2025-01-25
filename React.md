@@ -212,6 +212,595 @@ The **component lifecycle** refers to the series of phases a component goes thro
 Web Components are a set of web platform APIs that allow you to create reusable, encapsulated HTML elements.
 
 ---
+# props vs states
+**props** are about receiving external data inside a component. 
+**state** is about managing and updating internal data. And, most importantly, whenever such state is updated, React goes ahead and updates the parts of the UI that are affected by the state change.
+# Why the returned state value declared as constant?
+-   The state value returned by  `useState()`  is  **immutable**  and should not be modified directly.  
+-   Declaring it as a  `const`  enforces this immutability and prevents accidental reassignment.    
+-   State updates must always be performed using the state updater function provided by  `useState()`.
+# How can state be shared across multiple components/ How to make state changes based on event that occurs in another component?
+- If state needs to change because of some event that occurs in another component, you should lift the state up and manage it on a higher, shared level (that is, a common ancestor component).
+
+# What is the importance of key prop in component < li >?
+Most list updates **are incremental updates**, **not bulk changes**. But React can't distinguish the exact use case.
+So keys help React identify elements that were rendered before and didn't change. By allowing for the unique identification of all list elements, keys also help React to move (list item) DOM elements around efficiently instead of  **destroying and rebuilding the entire DOM node**.
+# What are refs and compare refs vs state:
+In React, **refs** and **state** are both used to manage data, but they serve different purposes and have distinct use cases. Below is a detailed explanation of **refs**, how they differ from **state**, and when to use each.
+
+---
+
+## **What are Refs?**
+
+**Refs** (short for "references") are a way to access and interact with DOM elements or React components directly. They provide a way to "hold" a reference to a DOM node or a React component instance.
+
+### **Key Characteristics of Refs:**
+1. **Direct DOM Access**: Refs allow you to directly access and manipulate DOM elements.
+2. **Mutable**: Unlike state, refs are mutable and do not trigger re-renders when their value changes.
+3. **Persist Across Renders**: Ref values persist across component re-renders.
+4. **Use Cases**:
+   - Managing focus, text selection, or media playback.
+   - Integrating with third-party DOM libraries.
+   - Accessing DOM elements for measurements or animations.
+
+---
+
+### **How to Create and Use Refs**
+
+#### **1. Using `useRef` Hook (Functional Components):**
+The `useRef` hook is the most common way to create refs in functional components.
+
+```javascript
+import React, { useRef } from "react";
+
+function MyComponent() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus(); // Access the DOM element and focus it
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+- `useRef` returns a mutable object with a `current` property, which holds the reference to the DOM element or component instance.
+- Changes to `ref.current` do not trigger re-renders.
+
+
+
+---
+
+## **Refs vs. State**
+
+| **Feature**              | **Refs**                                      | **State**                                     |
+|--------------------------|-----------------------------------------------|-----------------------------------------------|
+| **Purpose**              | Access and manipulate DOM elements or components. | Manage and update component data that affects rendering. |
+| **Mutability**           | Mutable (changes do not trigger re-renders).  | Immutable (changes trigger re-renders).       |
+| **Re-renders**           | Do not cause re-renders when updated.         | Cause re-renders when updated.                |
+| **Persistence**          | Persist across renders.                       | Reset or update on re-renders.                |
+| **Use Cases**            | - Direct DOM manipulation (e.g., focus, scroll). <br> - Integrating with third-party libraries. | - Managing UI state (e.g., form inputs, toggles). <br> - Triggering re-renders based on data changes. |
+| **Example**              | `const inputRef = useRef(null);`              | `const [count, setCount] = useState(0);`      |
+
+---
+
+## **When to Use Refs vs. State**
+
+### **Use Refs When:**
+1. You need to **directly access or manipulate a DOM element** (e.g., focus an input, scroll to a position).
+2. You are **integrating with third-party libraries** that require direct DOM access.
+3. You need to **store mutable values** that do not affect rendering (e.g., timers, previous values).
+
+### **Use State When:**
+1. You need to **manage data that affects the UI** (e.g., form inputs, toggles, counters).
+2. You want to **trigger re-renders** when data changes.
+3. You need to **store values that are tied to the component's lifecycle** and should reset or update on re-renders.
+
+---
+
+## **Example: Refs vs. State**
+
+### **Using State (for UI Updates):**
+```javascript
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+- Here, `count` is part of the component's state, and updating it triggers a re-render.
+
+---
+
+### **Using Refs (for Direct DOM Manipulation):**
+```javascript
+function FocusInput() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus(); // Directly manipulate the DOM
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+- Here, `inputRef` is used to directly access and manipulate the DOM element without triggering a re-render.
+
+---
+
+## **Key Takeaways**
+- **Refs** are used for **direct DOM manipulation** and storing **mutable values** that do not trigger re-renders.
+- **State** is used for **managing data** that affects the UI and triggers re-renders when updated.
+- Use **refs** when you need to interact with the DOM or store values that persist across renders without causing re-renders.
+- Use **state** when you need to manage data that affects the component's rendering and behavior.
+# Explain forwardRef() in React:
+## **Why is  `forwardRef`  Needed?**
+
+By default, React does not allow  `ref`  to be passed as a prop to functional components because  `ref`  is a special attribute (like  `key`). If you try to pass a  `ref`  directly as a prop, React will ignore it.
+
+For example:
+
+javascript
+
+Copy
+
+function ChildComponent({ ref }) {
+  return <input ref={ref} />; // This won't work!
+}
+
+To solve this problem, React provides the  `forwardRef`  function, which allows you to forward the  `ref`  to a child component.
+
+----------
+
+## **How Does  `forwardRef`  Work?**
+
+`forwardRef`  is a function that takes a  **component**  as an argument and returns a new component that can accept a  `ref`  as a second argument. The child component can then attach this  `ref`  to a DOM element or another component.
+
+### **Syntax:**
+
+javascript
+
+Copy
+
+const ChildComponent = React.forwardRef((props, ref) => {
+  return <div ref={ref}>Child Component</div>;
+});
+
+-   The first argument (`props`) contains the props passed to the component.
+    
+-   The second argument (`ref`) is the  `ref`  passed from the parent component.
+    
+
+----------
+
+## **Example: Using  `forwardRef`**
+
+### **Parent Component:**
+
+```
+import React, { useRef } from "react";
+import ChildComponent from "./ChildComponent";
+function ParentComponent() {
+  const inputRef = useRef(null);
+  const focusInput = () => {
+    inputRef.current.focus(); // Access the child's input element
+  };
+
+  return (
+    <div>
+      <ChildComponent ref={inputRef} />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+### **Child Component (using  `forwardRef`):**
+
+```
+import React from "react";
+const ChildComponent = React.forwardRef((props, ref) => {
+  return <input type="text" ref={ref} />; // Forward the ref to the input element
+});
+```
+export default ChildComponent;
+
+---------
+## **Key Points About  `forwardRef`**
+
+1.  **Forwarding Refs to DOM Elements**:
+    -   You can forward a  `ref`  to a DOM element (e.g., an  `input`,  `div`, etc.) inside the child component.
+        
+2.  **Forwarding Refs to Class Components**
+    -   You can also forward a  `ref`  to a class component instance, allowing the parent to access the child's methods or properties.
+        
+3.  **Use Cases**:
+    -   **Focus Management**: Focus an input field in a child component.   
+    -   **Animations**: Trigger animations on a DOM element in a child component.        
+    -   **Third-Party Libraries**: Integrate with libraries that require direct DOM access.
+
+# controlled vs uncontrolled components
+...
+
+
+---
+
+# **What is `useCallback`?**
+
+`useCallback` is a hook that **memoizes a function**, meaning it returns a memoized (cached) version of the function that only changes if one of its dependencies changes. This is useful for optimizing performance, especially when passing callbacks to child components that rely on reference equality to prevent unnecessary re-renders.
+
+### **Syntax:**
+```javascript
+const memoizedCallback = useCallback(() => {
+  // Function logic
+}, [dependencies]);
+```
+
+- The first argument is the function you want to memoize.
+- The second argument is an array of dependencies. The function will only be recreated if one of these dependencies changes.
+
+### **Example:**
+```javascript
+import React, { useCallback, useState } from "react";
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  const increment = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []); // No dependencies, so the function is memoized once
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <ChildComponent onIncrement={increment} />
+    </div>
+  );
+}
+
+function ChildComponent({ onIncrement }) {
+  return <button onClick={onIncrement}>Increment</button>;
+}
+```
+
+---
+
+## **What is `useEffect`?**
+
+`useEffect` is a hook that allows you to perform **side effects** in functional components. It runs after the component renders and can be used for tasks like fetching data, setting up subscriptions, or manually updating the DOM.
+
+### **Syntax:**
+```javascript
+useEffect(() => {
+  // Side effect logic
+  return () => {
+    // Cleanup logic (optional)
+  };
+}, [dependencies]);
+```
+
+- The first argument is a function that contains the side effect logic.
+- The second argument is an array of dependencies. The effect will only re-run if one of these dependencies changes.
+- You can optionally return a cleanup function to handle tasks like unsubscribing from events or canceling timers.
+
+### **Example:**
+```javascript
+import React, { useEffect, useState } from "react";
+
+function Timer() {
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []); // No dependencies, so the effect runs only once
+
+  return <p>Time: {time} seconds</p>;
+}
+```
+
+---
+
+## **`useCallback` vs `useEffect`**
+
+| **Feature**              | **`useCallback`**                              | **`useEffect`**                              |
+|--------------------------|------------------------------------------------|----------------------------------------------|
+| **Purpose**              | Memoizes a function to optimize performance.   | Performs side effects after rendering.       |
+| **When It Runs**         | Returns a memoized function.                   | Runs after the component renders.            |
+| **Dependencies**         | Recreates the function if dependencies change. | Re-runs the effect if dependencies change.   |
+| **Use Cases**            | - Preventing unnecessary re-renders. <br> - Passing stable callbacks to child components. | - Fetching data. <br> - Setting up subscriptions. <br> - Manually updating the DOM. |
+| **Example**              | Memoizing a callback function.                 | Fetching data from an API.                   |
+
+---
+
+## **Key Differences**
+
+1. **Purpose**:
+   - `useCallback`: Optimizes performance by memoizing functions.
+   - `useEffect`: Handles side effects like data fetching or DOM updates.
+
+2. **Execution**:
+   - `useCallback`: Returns a memoized function that only changes if dependencies change.
+   - `useEffect`: Runs after the component renders and can optionally clean up when the component unmounts.
+
+3. **Use Cases**:
+   - `useCallback`: Used when passing callbacks to child components to prevent unnecessary re-renders.
+   - `useEffect`: Used for tasks that need to happen after rendering, such as API calls or subscriptions.
+
+---
+
+## **When to Use Each**
+
+### **Use `useCallback` When:**
+- You need to pass a stable callback to a child component.
+- You want to avoid unnecessary re-renders caused by function recreations.
+
+### **Use `useEffect` When:**
+- You need to perform side effects like fetching data, updating the DOM, or setting up subscriptions.
+- You need to clean up resources (e.g., unsubscribe from events) when the component unmounts.
+
+---
+
+## **Example: Combining `useCallback` and `useEffect`**
+
+```javascript
+import React, { useState, useCallback, useEffect } from "react";
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  const increment = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []); // Memoized callback
+
+  useEffect(() => {
+    console.log("Count updated:", count);
+  }, [count]); // Side effect that runs when `count` changes
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <ChildComponent onIncrement={increment} />
+    </div>
+  );
+}
+
+function ChildComponent({ onIncrement }) {
+  return <button onClick={onIncrement}>Increment</button>;
+}
+```
+
+---
+
+## **Key Takeaways**
+
+- **`useCallback`**: Memoizes functions to optimize performance and prevent unnecessary re-renders.
+- **`useEffect`**: Handles side effects like data fetching, DOM updates, and cleanup tasks.
+- Use `useCallback` for stable callbacks and `useEffect` for side effects.
+
+# In React, **`memo`** is a higher-order component (HOC) used to optimize functional components by preventing unnecessary re-renders. It works by **memoizing** the component, meaning it will only re-render if its **props** change. This is particularly useful for improving performance in applications with complex UIs or frequent re-renders.
+
+---
+
+# **What is `memo`?**
+
+- **`memo`** is a function that wraps a functional component and returns a memoized version of it.
+- The memoized component will only re-render if:
+  1. Its **props** change.
+  2. Its **internal state** or **context** changes.
+- If the props remain the same, the component will skip re-rendering, improving performance.
+
+---
+
+## **How Does `memo` Work?**
+
+When you wrap a component with `memo`, React performs a **shallow comparison** of the previous and new props. If the props are the same, React reuses the previously rendered result, avoiding unnecessary re-renders.
+
+---
+
+## **Syntax:**
+
+```javascript
+import React, { memo } from "react";
+
+const MyComponent = memo((props) => {
+  // Component logic
+  return <div>{props.value}</div>;
+});
+```
+
+---
+
+## **When to Use `memo`?**
+
+Use `memo` in the following scenarios:
+1. **Pure Functional Components**:
+   - Components that always render the same output for the same props.
+2. **Expensive Re-renders**:
+   - Components that are computationally expensive to render.
+3. **Frequent Re-renders**:
+   - Components that re-render often but rarely have prop changes.
+4. **Parent-Child Relationships**:
+   - When a parent component re-renders, but the child component doesn’t need to.
+
+---
+
+## **Example: Using `memo`**
+
+### **Without `memo`:**
+```javascript
+import React, { useState } from "react";
+
+function ChildComponent({ value }) {
+  console.log("ChildComponent re-rendered");
+  return <div>{value}</div>;
+}
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <p>Parent Count: {count}</p>
+      <ChildComponent value="Hello" />
+    </div>
+  );
+}
+```
+
+- **Problem**: Every time the parent component re-renders (e.g., when `count` changes), the `ChildComponent` also re-renders, even though its props (`value`) haven’t changed.
+
+---
+
+### **With `memo`:**
+```javascript
+import React, { useState, memo } from "react";
+
+const ChildComponent = memo(({ value }) => {
+  console.log("ChildComponent re-rendered");
+  return <div>{value}</div>;
+});
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <p>Parent Count: {count}</p>
+      <ChildComponent value="Hello" />
+    </div>
+  );
+}
+```
+
+- **Solution**: The `ChildComponent` is memoized, so it only re-renders if its props (`value`) change. In this case, since `value` is always `"Hello"`, the child component does not re-render when the parent updates.
+
+---
+
+## **Custom Comparison Function**
+
+By default, `memo` performs a **shallow comparison** of props. If you need more control, you can provide a **custom comparison function** as the second argument to `memo`.
+
+### **Syntax:**
+```javascript
+const MyComponent = memo((props) => {
+  // Component logic
+}, arePropsEqual);
+```
+
+- The `arePropsEqual` function takes two arguments:
+  1. `prevProps`: The previous props.
+  2. `nextProps`: The new props.
+- Return `true` if the props are equal (no re-render), or `false` if they are not (re-render).
+
+### **Example:**
+```javascript
+import React, { memo } from "react";
+
+const ChildComponent = memo(
+  ({ value }) => {
+    console.log("ChildComponent re-rendered");
+    return <div>{value}</div>;
+  },
+  (prevProps, nextProps) => {
+    // Only re-render if `value` changes
+    return prevProps.value === nextProps.value;
+  }
+);
+```
+
+---
+
+## **When NOT to Use `memo`**
+
+1. **Components with Frequent Prop Changes**:
+   - If the props change often, `memo` won’t provide any benefit.
+2. **Components with Simple Rendering Logic**:
+   - If the component is lightweight, the overhead of `memo` might outweigh its benefits.
+3. **Components with Internal State or Context**:
+   - `memo` only prevents re-renders based on prop changes. If the component relies on state or context, it will still re-render when those change.
+
+---
+
+## **Best Practices for Using `memo`**
+
+1. **Profile First**:
+   - Use React DevTools to identify performance bottlenecks before applying `memo`.
+2. **Memoize Wisely**:
+   - Only memoize components that are expensive to render or re-render frequently.
+3. **Combine with `useCallback`**:
+   - If passing callbacks as props, use `useCallback` to memoize the callback and prevent unnecessary re-renders.
+
+---
+
+## **Example: Combining `memo` and `useCallback`**
+
+```javascript
+import React, { useState, memo, useCallback } from "react";
+
+const ChildComponent = memo(({ value, onClick }) => {
+  console.log("ChildComponent re-rendered");
+  return <button onClick={onClick}>{value}</button>;
+});
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    console.log("Button clicked");
+  }, []); // Memoized callback
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <p>Parent Count: {count}</p>
+      <ChildComponent value="Click Me" onClick={handleClick} />
+    </div>
+  );
+}
+```
+
+- **Explanation**:
+  - `ChildComponent` is memoized to prevent unnecessary re-renders.
+  - `handleClick` is memoized using `useCallback` to ensure the same callback reference is passed to `ChildComponent`.
+
+---
+
+## **Key Takeaways**
+
+- **`memo`** is used to prevent unnecessary re-renders of functional components.
+- It works by memoizing the component and only re-rendering if the props change.
+- Use `memo` for pure components, expensive renders, or frequent re-renders.
+- Combine `memo` with `useCallback` for optimal performance when passing callbacks as props.
+- Avoid overusing `memo` for lightweight components or components with frequent prop changes.
+
+# Questions
+1. What is "conditional content"? 
+2.  Name at least two different ways of rendering JSX elements conditionally. 
+3. Which elegant approach can be used to define element tags conditionally? 
+4. What's a potential downside of using only ternary expressions (for conditional content)? 
+5. How can lists of data be rendered as JSX elements? 
+6. Why should keys be added to rendered list items? 
+7. Give one example each for a good and a bad key.
 
 # Questions:
 
