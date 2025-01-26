@@ -1022,7 +1022,90 @@ function ParentComponent() {
 | IndexedDB            | Browser's IndexedDB database      | Global         | Persistent          | Storing large structured data                |
 
 ---
+# Cookies and sessions
+The relationship between **cookies** and **sessions** is fundamental to how web applications manage user state and authentication. Here's a breakdown of their connection:
 
+---
+
+### **What are Cookies?**
+- **Definition**: Cookies are small pieces of data stored in the user's browser. They are sent to the server with every HTTP request.
+- **Storage Location**: Browser's cookie storage.
+- **Persistence**: Can be persistent (with an expiration date) or session-based (deleted when the browser is closed).
+- **Use Case**: Often used to store session identifiers, user preferences, or tracking information.
+
+---
+
+### **What are Sessions?**
+- **Definition**: Sessions are server-side storage mechanisms used to maintain user-specific data across multiple requests.
+- **Storage Location**: Server memory, a database, or a file system.
+- **Persistence**: Temporary; sessions expire after a certain period of inactivity or when the user logs out.
+- **Use Case**: Used to store sensitive or large amounts of data (e.g., user authentication status, shopping cart items).
+
+---
+
+### **How Cookies and Sessions Work Together**
+1. **Session Creation**:
+   - When a user logs in or interacts with a web application, the server creates a unique **session ID**.
+   - This session ID is used to identify the user's session on the server.
+
+2. **Session ID Storage**:
+   - The server sends the session ID to the browser as a **cookie**.
+   - The browser stores this cookie and includes it in every subsequent request to the server.
+
+3. **Session Management**:
+   - On each request, the server reads the session ID from the cookie.
+   - The server uses this ID to retrieve the corresponding session data from its storage (e.g., memory, database).
+
+4. **Session Expiry**:
+   - Sessions typically expire after a period of inactivity or when the user logs out.
+   - The cookie containing the session ID may also expire, depending on its configuration.
+
+---
+
+### **Example Workflow**
+1. **User Logs In**:
+   - The server creates a session and stores user data (e.g., `{ userId: 123, isLoggedIn: true }`) in its memory or database.
+   - The server sends a cookie with the session ID (e.g., `sessionId=abc123`) to the browser.
+
+2. **Subsequent Requests**:
+   - The browser automatically includes the session ID cookie in every request to the server.
+   - The server reads the session ID, retrieves the corresponding session data, and uses it to personalize the response.
+
+3. **User Logs Out**:
+   - The server deletes the session data and invalidates the session ID.
+   - The browser may also delete the session ID cookie, depending on its configuration.
+
+---
+
+### **Key Differences Between Cookies and Sessions**
+| Feature            | Cookies                          | Sessions                        |
+|--------------------|----------------------------------|---------------------------------|
+| **Storage Location**| Browser (client-side)            | Server (server-side)            |
+| **Data Size**       | Limited (4KB per cookie)         | Can store larger amounts of data|
+| **Security**        | Less secure (can be manipulated) | More secure (server-controlled) |
+| **Persistence**     | Can be persistent or temporary   | Temporary (expires after inactivity) |
+
+---
+
+### **Why Use Cookies for Sessions?**
+- **Stateless Nature of HTTP**: HTTP is stateless, meaning each request is independent. Cookies allow the server to identify the user across multiple requests.
+- **Efficiency**: Storing only a session ID in a cookie reduces the amount of data sent between the client and server.
+- **Scalability**: Sessions can be stored in distributed systems (e.g., databases) for scalability, while cookies handle the client-side identification.
+
+---
+
+### **Alternative to Cookies for Sessions**
+- **URL-Based Sessions**: Session IDs can be passed as URL parameters instead of cookies. However, this is less secure and less convenient.
+- **Token-Based Authentication**: Modern applications often use tokens (e.g., JWT) stored in cookies or local storage instead of traditional session IDs.
+
+---
+
+### **Summary**
+- **Cookies** are used to store the **session ID** on the client side.
+- **Sessions** store user-specific data on the server side.
+- Together, they enable web applications to maintain state and provide personalized experiences for users.
+
+Let me know if you need further clarification!
 
 # Questions
 1. What is "conditional content"? 
