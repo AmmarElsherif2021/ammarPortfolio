@@ -785,13 +785,244 @@ function ParentComponent() {
 
 ---
 
-## **Key Takeaways**
+### **Key Takeaways**
 
 - **`memo`** is used to prevent unnecessary re-renders of functional components.
 - It works by memoizing the component and only re-rendering if the props change.
 - Use `memo` for pure components, expensive renders, or frequent re-renders.
 - Combine `memo` with `useCallback` for optimal performance when passing callbacks as props.
 - Avoid overusing `memo` for lightweight components or components with frequent prop changes.
+
+------
+# In React, different storage types are used to manage and persist data:
+
+---
+
+### 1. **Component State (`useState` or `this.state`)**
+- **Where it's stored**: In memory (RAM) as part of the component's instance.
+- **Scope**: Local to the component.
+- **Persistence**: Temporary; lost when the component unmounts.
+- **Example**:
+  ```javascript
+  import React, { useState } from 'react';
+
+  function Counter() {
+    const [count, setCount] = useState(0); // Stored in memory
+
+    return (
+      <div>
+        <p>Count: {count}</p>
+        <button onClick={() => setCount(count + 1)}>Increment</button>
+      </div>
+    );
+  }
+  ```
+
+---
+
+### 2. **Context API (`React.createContext`)**
+- **Where it's stored**: In memory (RAM) as part of the React component tree.
+- **Scope**: Global within the component tree where the context is provided.
+- **Persistence**: Temporary; lost on page refresh.
+- **Example**:
+  ```javascript
+  import React, { createContext, useContext } from 'react';
+
+  const ThemeContext = createContext(); // Stored in memory
+
+  function App() {
+    return (
+      <ThemeContext.Provider value="dark">
+        <Toolbar />
+      </ThemeContext.Provider>
+    );
+  }
+
+  function Toolbar() {
+    const theme = useContext(ThemeContext);
+    return <div>Current Theme: {theme}</div>;
+  }
+  ```
+
+---
+
+### 3. **Local Storage (`window.localStorage`)**
+- **Where it's stored**: In the browser's local storage (persistent storage on the user's device).
+- **Scope**: Global across the entire application.
+- **Persistence**: Persistent; data remains until explicitly cleared.
+- **Example**:
+  ```javascript
+  import React, { useState, useEffect } from 'react';
+
+  function App() {
+    const [name, setName] = useState(localStorage.getItem('name') || '');
+
+    useEffect(() => {
+      localStorage.setItem('name', name); // Stored in browser's local storage
+    }, [name]);
+
+    return (
+      <div>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter your name"
+        />
+        <p>Hello, {name || 'Guest'}!</p>
+      </div>
+    );
+  }
+  ```
+
+---
+
+### 4. **Session Storage (`window.sessionStorage`)**
+- **Where it's stored**: In the browser's session storage (temporary storage for the duration of the page session).
+- **Scope**: Global across the entire application.
+- **Persistence**: Temporary; data is cleared when the session ends (tab or browser is closed).
+- **Example**:
+  ```javascript
+  import React, { useState, useEffect } from 'react';
+
+  function App() {
+    const [theme, setTheme] = useState(sessionStorage.getItem('theme') || 'light');
+
+    useEffect(() => {
+      sessionStorage.setItem('theme', theme); // Stored in browser's session storage
+    }, [theme]);
+
+    return (
+      <div>
+        <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+          Toggle Theme
+        </button>
+        <p>Current Theme: {theme}</p>
+      </div>
+    );
+  }
+  ```
+
+---
+
+### 5. **Redux (or Other State Management Libraries)**
+- **Where it's stored**: In memory (RAM) as part of the Redux store.
+- **Scope**: Global across the entire application.
+- **Persistence**: Temporary by default, but can be combined with `localStorage` or `sessionStorage` for persistence.
+- **Example**:
+  ```javascript
+  import { createStore } from 'redux';
+  import { Provider, useSelector, useDispatch } from 'react-redux';
+
+  const initialState = { count: 0 };
+
+  function reducer(state = initialState, action) {
+    switch (action.type) {
+      case 'INCREMENT':
+        return { count: state.count + 1 };
+      default:
+        return state;
+    }
+  }
+
+  const store = createStore(reducer); // Stored in memory
+
+  function Counter() {
+    const count = useSelector((state) => state.count);
+    const dispatch = useDispatch();
+
+    return (
+      <div>
+        <p>Count: {count}</p>
+        <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+      </div>
+    );
+  }
+
+  function App() {
+    return (
+      <Provider store={store}>
+        <Counter />
+      </Provider>
+    );
+  }
+  ```
+
+---
+
+### 6. **Cookies**
+- **Where it's stored**: In the browser's cookie storage (small text files stored on the user's device).
+- **Scope**: Global across the entire application.
+- **Persistence**: Persistent; can have an expiration date.
+- **Example**:
+  ```javascript
+  import React, { useEffect } from 'react';
+  import Cookies from 'js-cookie';
+
+  function App() {
+    useEffect(() => {
+      Cookies.set('username', 'JohnDoe', { expires: 7 }); // Stored in browser's cookies
+    }, []);
+
+    const username = Cookies.get('username');
+
+    return (
+      <div>
+        <p>Welcome, {username}!</p>
+      </div>
+    );
+  }
+  ```
+
+---
+
+### 7. **IndexedDB**
+- **Where it's stored**: In the browser's IndexedDB database (a low-level API for storing large amounts of structured data).
+- **Scope**: Global across the entire application.
+- **Persistence**: Persistent; data remains until explicitly cleared.
+- **Example**:
+  ```javascript
+  import React, { useEffect } from 'react';
+
+  function App() {
+    useEffect(() => {
+      const request = indexedDB.open('MyDatabase', 1); // Stored in browser's IndexedDB
+
+      request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains('users')) {
+          db.createObjectStore('users', { keyPath: 'id' });
+        }
+      };
+
+      request.onsuccess = (event) => {
+        const db = event.target.result;
+        const transaction = db.transaction('users', 'readwrite');
+        const store = transaction.objectStore('users');
+        store.add({ id: 1, name: 'Alice' });
+      };
+    }, []);
+
+    return <div>IndexedDB Example</div>;
+  }
+  ```
+
+---
+
+### Summary Table:
+
+| Storage Type         | Where it's Stored                  | Scope          | Persistence         | Use Case                                      |
+|----------------------|------------------------------------|----------------|---------------------|----------------------------------------------|
+| Component State      | In memory (RAM)                   | Local          | Temporary           | Managing local component state               |
+| Context API          | In memory (RAM)                   | Global (Tree)  | Temporary           | Sharing global data across components        |
+| Local Storage        | Browser's local storage           | Global         | Persistent          | Persisting data across browser sessions      |
+| Session Storage      | Browser's session storage         | Global         | Temporary (Session) | Persisting data for a single session         |
+| Redux/State Libraries| In memory (RAM)                   | Global         | Temporary           | Managing complex global state                |
+| Cookies              | Browser's cookie storage          | Global         | Persistent          | Storing small data sent to the server        |
+| IndexedDB            | Browser's IndexedDB database      | Global         | Persistent          | Storing large structured data                |
+
+---
+
 
 # Questions
 1. What is "conditional content"? 
