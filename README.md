@@ -1,261 +1,72 @@
+# A statically generated blog example using Next.js, Markdown, and TypeScript
 
+This is the existing [blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) plus TypeScript.
 
----
+This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates) feature using Markdown files as the data source.
 
-## **Core JavaScript Concepts**
-### **1. Basics of JavaScript**
-- **What is JavaScript?**
-  - A high-level, interpreted programming language used for web development.
-- **Difference between `let`, `const`, and `var`.**
-  - `let` and `const` are block-scoped, while `var` is function-scoped.
-  - `const` cannot be reassigned, while `let` and `var` can.
-- **What is hoisting?**
-  - Variables and function declarations are moved to the top of their scope during compilation.
-- **What is the difference between `==` and `===`?**
-  - `==` performs type coercion, while `===` checks both value and type.
+The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
 
----
+To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
 
-### **2. Functions**
-- **What is a closure?**
-  - A function that retains access to its lexical scope even when executed outside that scope.
-  - Example:
-    ```javascript
-    function outer() {
-      let x = 10;
-      return function inner() {
-        console.log(x);
-      };
-    }
-    const innerFunc = outer();
-    innerFunc(); // Output: 10
-    ```
-- **What is an IIFE (Immediately Invoked Function Expression)?**
-  - A function that is executed immediately after it’s defined.
-  - Example:
-    ```javascript
-    (function() {
-      console.log("IIFE");
-    })();
-    ```
-- **What is the difference between `function declaration` and `function expression`?**
-  - Function declarations are hoisted, while function expressions are not.
+## Demo
 
----
+[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
 
-### **3. Objects and Prototypes**
-- **What is the `this` keyword?**
-  - Refers to the object that the function is a property of.
-  - Example:
-    ```javascript
-    const obj = {
-      name: "John",
-      greet: function() {
-        console.log(`Hello, ${this.name}`);
-      },
-    };
-    obj.greet(); // Output: Hello, John
-    ```
-- **What is prototypal inheritance?**
-  - Objects can inherit properties and methods from other objects via their prototype chain.
-  - Example:
-    ```javascript
-    const parent = { name: "Parent" };
-    const child = Object.create(parent);
-    console.log(child.name); // Output: Parent
-    ```
-- **What is the difference between `Object.create` and `new`?**
-  - `Object.create` creates a new object with a specified prototype.
-  - `new` creates an instance of a constructor function.
+## Deploy your own
 
----
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
 
-### **4. Asynchronous JavaScript**
-- **What is the event loop?**
-  - A mechanism that allows JavaScript to handle asynchronous operations by offloading tasks to the browser APIs and processing them in the call stack.
-- **What are promises?**
-  - Objects that represent the eventual completion (or failure) of an asynchronous operation.
-  - Example:
-    ```javascript
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve("Done"), 1000);
-    });
-    promise.then((result) => console.log(result)); // Output: Done
-    ```
-- **What is `async/await`?**
-  - A syntactic sugar for working with promises, making asynchronous code look synchronous.
-  - Example:
-    ```javascript
-    async function fetchData() {
-      const response = await fetch("https://api.example.com/data");
-      const data = await response.json();
-      console.log(data);
-    }
-    ```
+### Related examples
 
----
+- [AgilityCMS](/examples/cms-agilitycms)
+- [Builder.io](/examples/cms-builder-io)
+- [ButterCMS](/examples/cms-buttercms)
+- [Contentful](/examples/cms-contentful)
+- [Cosmic](/examples/cms-cosmic)
+- [DatoCMS](/examples/cms-datocms)
+- [DotCMS](/examples/cms-dotcms)
+- [Drupal](/examples/cms-drupal)
+- [Enterspeed](/examples/cms-enterspeed)
+- [Ghost](/examples/cms-ghost)
+- [GraphCMS](/examples/cms-graphcms)
+- [Kontent.ai](/examples/cms-kontent-ai)
+- [MakeSwift](/examples/cms-makeswift)
+- [Payload](/examples/cms-payload)
+- [Plasmic](/examples/cms-plasmic)
+- [Prepr](/examples/cms-prepr)
+- [Prismic](/examples/cms-prismic)
+- [Sanity](/examples/cms-sanity)
+- [Sitecore XM Cloud](/examples/cms-sitecore-xmcloud)
+- [Sitefinity](/examples/cms-sitefinity)
+- [Storyblok](/examples/cms-storyblok)
+- [TakeShape](/examples/cms-takeshape)
+- [Tina](/examples/cms-tina)
+- [Umbraco](/examples/cms-umbraco)
+- [Umbraco heartcore](/examples/cms-umbraco-heartcore)
+- [Webiny](/examples/cms-webiny)
+- [WordPress](/examples/cms-wordpress)
+- [Blog Starter](/examples/blog-starter)
 
-### **5. ES6+ Features**
-- **What are arrow functions?**
-  - A shorter syntax for writing functions, with no `this` binding.
-  - Example:
-    ```javascript
-    const add = (a, b) => a + b;
-    ```
-- **What are template literals?**
-  - Allow embedding expressions inside strings using backticks.
-  - Example:
-    ```javascript
-    const name = "John";
-    console.log(`Hello, ${name}`); // Output: Hello, John
-    ```
-- **What are destructuring and spread/rest operators?**
-  - Destructuring: Extracting values from arrays or objects.
-    ```javascript
-    const [a, b] = [1, 2];
-    const { name, age } = { name: "John", age: 30 };
-    ```
-  - Spread: Expanding arrays or objects.
-    ```javascript
-    const arr = [1, 2, 3];
-    const newArr = [...arr, 4]; // [1, 2, 3, 4]
-    ```
-  - Rest: Collecting remaining arguments into an array.
-    ```javascript
-    function sum(...args) {
-      return args.reduce((acc, val) => acc + val, 0);
-    }
-    ```
+## How to use
 
----
+Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
-## **Advanced JavaScript Concepts**
-### **1. Event Handling**
-- **What is event delegation?**
-  - A technique where you add a single event listener to a parent element to handle events for its child elements.
-  - Example:
-    ```javascript
-    document.getElementById("parent").addEventListener("click", (event) => {
-      if (event.target.tagName === "BUTTON") {
-        console.log("Button clicked");
-      }
-    });
-    ```
+```bash
+npx create-next-app --example blog-starter blog-starter-app
+```
 
----
+```bash
+yarn create next-app --example blog-starter blog-starter-app
+```
 
-### **2. Error Handling**
-- **What is `try...catch`?**
-  - A block for handling exceptions.
-  - Example:
-    ```javascript
-    try {
-      throw new Error("Something went wrong");
-    } catch (error) {
-      console.log(error.message); // Output: Something went wrong
-    }
-    ```
+```bash
+pnpm create next-app --example blog-starter blog-starter-app
+```
 
----
+Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
 
-### **3. Modules**
-- **What are ES6 modules?**
-  - A way to organize code into reusable pieces using `import` and `export`.
-  - Example:
-    ```javascript
-    // math.js
-    export const add = (a, b) => a + b;
+Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
 
-    // main.js
-    import { add } from "./math.js";
-    console.log(add(1, 2)); // Output: 3
-    ```
+# Notes
 
----
-
-## **Practical JavaScript Questions**
-### **1. Coding Problems**
-- **Reverse a string**:
-  ```javascript
-  function reverseString(str) {
-    return str.split("").reverse().join("");
-  }
-  console.log(reverseString("hello")); // Output: "olleh"
-  ```
-- **Find the largest number in an array**:
-  ```javascript
-  function findLargest(arr) {
-    return Math.max(...arr);
-  }
-  console.log(findLargest([1, 2, 3, 4])); // Output: 4
-  ```
-- **Check if a string is a palindrome**:
-  ```javascript
-  function isPalindrome(str) {
-    return str === str.split("").reverse().join("");
-  }
-  console.log(isPalindrome("madam")); // Output: true
-  ```
-
----
-
-### **2. Debugging**
-- **Fix the following code**:
-  ```javascript
-  for (var i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 1000);
-  }
-  // Output: 3, 3, 3 (Fix to output 0, 1, 2)
-  ```
-  - Fix:
-    ```javascript
-    for (let i = 0; i < 3; i++) {
-      setTimeout(() => console.log(i), 1000);
-    }
-    ```
-
----
-
-### **3. DOM Manipulation**
-- **Add a new element to the DOM**:
-  ```javascript
-  const newElement = document.createElement("div");
-  newElement.textContent = "Hello, World!";
-  document.body.appendChild(newElement);
-  ```
-
----
-
-### **4. API Calls**
-- **Fetch data from an API and display it**:
-  ```javascript
-  async function fetchData() {
-    const response = await fetch("https://api.example.com/data");
-    const data = await response.json();
-    console.log(data);
-  }
-  fetchData();
-  ```
-
----
-
-## **Common Interview Questions**
-1. **Explain the difference between `null` and `undefined`.**
-   - `null` is an intentional absence of value, while `undefined` means a variable has been declared but not assigned a value.
-
-2. **What is the difference between `map`, `filter`, and `reduce`?**
-   - `map`: Transforms each element in an array.
-   - `filter`: Creates a new array with elements that pass a test.
-   - `reduce`: Reduces an array to a single value.
-
-3. **What is the difference between `call`, `apply`, and `bind`?**
-   - `call` and `apply` invoke a function with a specific `this` value and arguments.
-   - `bind` creates a new function with a specific `this` value.
-
-4. **What is the difference between `setTimeout` and `setInterval`?**
-   - `setTimeout` executes a function once after a delay.
-   - `setInterval` executes a function repeatedly at specified intervals.
-
----
-
- Good luck! 🚀
+`blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
