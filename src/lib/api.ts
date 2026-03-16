@@ -1,28 +1,33 @@
-import { Post } from "@/interfaces/post";
-import fs from "fs";
-import matter from "gray-matter";
-import { join } from "path";
-
-const postsDirectory = join(process.cwd(), "_posts");
-
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+// Client-side fetch helpers
+export async function fetchProjects() {
+  const res = await fetch('/api/projects')
+  if (!res.ok) throw new Error('Failed to fetch projects')
+  return res.json()
 }
 
-export function getPostBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return { ...data, slug: realSlug, content } as Post;
+export async function fetchArticles() {
+  const res = await fetch('/api/articles')
+  if (!res.ok) throw new Error('Failed to fetch articles')
+  return res.json()
 }
 
-export function getAllPosts(): Post[] {
-  const slugs = getPostSlugs();
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
-  return posts;
+export async function fetchArticle(slug: string) {
+  const res = await fetch(`/api/articles/${slug}`)
+  if (!res.ok) throw new Error('Failed to fetch article')
+  return res.json()
+}
+
+export async function submitContact(data: {
+  name: string
+  email: string
+  message: string
+  subject: string
+}) {
+  const res = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error('Failed to submit contact')
+  return res.json()
 }
