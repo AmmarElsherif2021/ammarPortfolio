@@ -690,11 +690,31 @@ git push origin main
 
 ---
 
-## **🎯 Next Steps**
+# Recap points:
+## Typescript: 
+### intefaces and types:
+#### Interfaces:
+ are best for describing the shape of objects, especially when you expect extension/inheritance or when modeling entities (like DB rows). They support extends, declaration merging, and read naturally as contracts.
+#### Types:
+ are more flexible — they can represent unions, primitives, computed/mapped shapes, and utility combinations. They can't be merged or extended the same way.
 
-1. **This Week:** Setup Vercel + Supabase accounts, create database
-2. **Next Week:** Build API routes & test with Postman
-3. **Week 3:** Create frontend pages
-4. **Week 4:** Add authentication & admin panel
-5. **Week 5:** Deploy to production
+##### Rule of thumb for this project:
+
+- Use interface for DB entities (User, Article, Project…) — things that map to a table row or a component's data contract
+- Use type for unions, enums-like literals, API payloads, and utility shapes (e.g. Role, Difficulty, CreateArticlePayload)
+---------------------------
+## Next
+### Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used
+That hydration error you’re seeing is a classic Next.js mismatch between server-rendered HTML and client-side React reconciliation. In simple terms, the HTML generated on the server doesn’t line up with what React expects when it boots up in the browser, so React discards the server output and rebuilds the tree on the client.
+
+Here are the most common causes and fixes:
+
+🔍 Common Causes
+Non-deterministic rendering: Using Math.random(), Date.now(), or other values that differ between server and client.
+
+Conditional rendering based on window or browser-only APIs: Anything that only exists in the client will cause mismatches.
+
+Locale/timezone differences: Dates or numbers formatted differently on server vs client.
+
+Dynamic data without proper hydration strategy: For example, fetching data inside a Client Component that isn’t wrapped in useEffect.
 

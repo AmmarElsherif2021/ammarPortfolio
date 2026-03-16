@@ -1,19 +1,24 @@
-// pages/api/test.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+// src/app/api/health/route.ts
+import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function GET() {
   const { data, error } = await supabase
     .from('projects')
     .select('*')
     .limit(1);
 
   if (error) {
-    return res.status(500).json({ error: error.message });
+    return NextResponse.json(
+      { status: 'unhealthy', error: error.message },
+      { status: 500 }
+    );
   }
 
-  res.status(200).json({ data });
+  return NextResponse.json({
+    status: 'healthy',
+    db: 'connected',
+    sample_row_fetched: data,
+    timestamp: new Date().toISOString(),
+  });
 }
