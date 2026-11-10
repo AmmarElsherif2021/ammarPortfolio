@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts already loaded in layout ───────────────────────────── */
+/* Black Han Sans, DM Sans, JetBrains Mono */
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    font-family: var(--font-martianMono), system-ui, sans-serif;
+    @apply bg-retro-cream text-retro-ink;
+    /* Subtle grid background (optional) */
+    background-image:
+      linear-gradient(rgba(74, 112, 135, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74, 112, 135, 0.15) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  a {
+    @apply text-retro-ink underline transition-opacity hover:opacity-70;
+  }
+
+  /* Comic-style borders and shadows */
+  .comic-border {
+    @apply border-2 border-retro-ink;
+  }
+  .comic-shadow {
+    @apply shadow-comic;
+  }
+  .comic-shadow-lg {
+    @apply shadow-comic-lg;
+  }
+}
+
+@layer components {
+  /* ── Retro Alert ──────────────────────────────────────────── */
+  .retro-alert {
+    @apply comic-border rounded-retro p-2 flex items-center gap-3;
+  }
+  .retro-alert-default {
+    @apply bg-retro-tint-3;
+  }
+  .retro-alert-preview {
+    @apply bg-retro-deep text-retro-cream;
+  }
+  .retro-alert-dot {
+    @apply w-2.5 h-2.5 rounded-full border-2 border-retro-ink shrink-0;
+  }
+
+  /* ── Retro Badge ──────────────────────────────────────────── */
+  .retro-badge {
+    font-family: var(--font-martianMono), monospace;
+    @apply text-retro-xs font-bold uppercase px-2 py-0.5 border-2 border-retro-ink rounded-retro;
+  }
+
+  /* ── Retro Header ─────────────────────────────────────────── */
+  .retro-header-bar {
+    @apply flex items-stretch comic-border rounded-retro overflow-hidden shadow-comic;
+  }
+  .retro-header-tab {
+    @apply px-3 py-2 flex items-center border-r-2 border-retro-ink;
+  }
+  .retro-header-logo {
+    font-family: var(--font-squadaOne), sans-serif;
+    @apply text-retro-xl font-black uppercase tracking-tight;
+  }
+
+  /* ── Retro Button ─────────────────────────────────────────── */
+  .retro-btn {
+    font-family: var(--font-martianMono), monospace;
+    @apply text-retro-xs font-semibold uppercase tracking-widest px-4 py-2 comic-border rounded-retro shadow-comic inline-block;
+  }
+
+  /* ── Retro Avatar ─────────────────────────────────────────── */
+  .retro-avatar {
+    @apply relative flex-shrink-0;
+  }
+  .retro-avatar-img {
+    @apply w-11 h-11 rounded-full comic-border object-cover shadow-comic;
+  }
+  .retro-avatar-fallback {
+    @apply w-11 h-11 rounded-full comic-border bg-retro-tint-3 flex items-center justify-center shadow-comic;
+  }
+  .retro-avatar-status {
+    @apply absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-retro-ink bg-retro-teal;
+  }
+
+  /* ── Retro Card (for articles/projects) ──────────────────── */
+  .retro-card {
+    @apply comic-border rounded-retro overflow-hidden shadow-comic bg-retro-paper;
+  }
+  .retro-card-header {
+    @apply border-b-2 border-retro-ink p-4 flex items-center gap-3;
+  }
+  .retro-card-body {
+    @apply p-4;
+  }
+
+  /* ── Retro Cover (hero) ──────────────────────────────────── */
+  .retro-cover {
+    @apply h-20 comic-border rounded-retro flex items-center justify-center bg-retro-deep diag-stripe;
+  }
+  .retro-cover-text {
+    font-family: var(--font-martianMono), monospace;
+    @apply text-retro-xs uppercase tracking-widest text-retro-soft-5;
+  }
+
+  /* ── Retro Section Header ────────────────────────────────── */
+  .retro-section-title {
+    font-family: var(--font-squadaOne), sans-serif;
+    @apply text-retro-2xl font-black uppercase;
+  }
+}
+
+@layer utilities {
+  .diag-stripe {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 6px,
+      rgba(255, 255, 255, 0.14) 6px,
+      rgba(255, 255, 255, 0.14) 12px
+    );
+  }
+  .checker-bg {
+    background-image: repeating-conic-gradient(#4a7087 0% 25%, #f4d482 0% 50%);
+    background-size: 8px 8px;
+  }
+}

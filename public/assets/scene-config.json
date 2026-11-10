@@ -1,0 +1,124 @@
+{
+  "engine": {
+    "antialias": true,
+    "adaptToDeviceRatio": true
+  },
+  "scene": {
+    "clearColor": { "r": 0.01, "g": 0.3, "b": 0.3, "a": 0.5 },
+    "useRightHandedSystem": false
+  },
+  "camera": {
+    "type": "arcRotate",
+    "alpha": -1.6,
+    "beta": 1.2,
+    "radius": 50,
+    "target": { "x": 0, "y": 0, "z": 0 },
+    "fov": 0.8,
+    "minZ": 0.1,
+    "maxZ": 1000
+  },
+  "lights": [
+    {
+      "type": "hemispheric",
+      "name": "ambientLight",
+      "direction": { "x": -0.2, "y": 0, "z": -1 },
+      "intensity": 0.7,
+      "diffuse": { "r": 1.48, "g": 2.35, "b": 2.42 }
+    },
+    {
+      "type": "directional",
+      "name": "sunLight",
+      "direction": { "x": -0.5, "y": -1, "z": -0.3 },
+      "intensity": 1.0,
+      "diffuse": { "r": 1, "g": 0.95, "b": 0.85 }
+    }
+  ],
+  "models": [
+    {
+      "name": "tsLogo",
+      "fileName": "typescript.glb",
+      "position": { "x": 0, "y": 0, "z": -20 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": -30, "y": 30, "z": 30 },
+      "emissionColor": { "r": 0.0, "g": 0.5, "b": 1.0 },
+      "isStill": false
+    },
+    {
+      "name": "pythonLogo",
+      "fileName": "python.glb",
+      "position": { "x": 0, "y": 0, "z": 20 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": -1, "y": 1, "z": -1 },
+      "emissionColor": { "r": 0.0, "g": 0.5, "b": 1.0 },
+      "isStill": false
+    },
+    {
+      "name": "nodejsLogo",
+      "fileName": "nodejs.glb",
+      "position": { "x": 20, "y": 0, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": -30, "y": 30, "z": 30 },
+      "emissionColor": { "r": 0.0, "g": 0.7, "b": 0.8 },
+      "isStill": false
+    },
+    {
+      "name": "blackCat",
+      "fileName": "black_cat.glb",
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": 12, "y": 12, "z": 12 },
+      "emissionColor": { "r": 0.0, "g": 0.04, "b": 0.04 },
+      "isStill": true
+    },
+    {
+      "name": "moonAndClouds",
+      "fileName": "moon_and_clouds.glb",
+      "position": { "x": 0, "y": -12, "z": 0 },
+      "rotation": { "x": 0.0, "y": 2.0, "z": -2.2 },
+      "scaling": { "x": -0.14, "y": 0.14, "z": -0.14 },
+      "emissionColor": { "r": 0.1, "g": 0.1, "b": 0.1 },
+      "isStill": true
+    },
+    {
+      "name": "reactLogo",
+      "fileName": "react.glb",
+      "position": { "x": 10, "y": 10, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": 1, "y": 1, "z": 1 },
+      "emissionColor": { "r": 0.0, "g": 0.1, "b": 0.1 },
+      "isStill": false
+    },
+    {
+      "name": "csharpLogo",
+      "fileName": "csharp.glb",
+      "position": { "x": -10, "y": 10, "z": 0 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": -0.1, "y": 0.1, "z": 0.1 },
+      "emissionColor": { "r": 0.0, "g": 0.1, "b": 0.1 },
+      "isStill": false
+    },
+    {
+      "name": "jsLogo",
+      "fileName": "javascript.glb",
+      "position": { "x": 0, "y": 10, "z": 10 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
+      "scaling": { "x": -50, "y": 50, "z": 50 },
+      "emissionColor": { "r": 0.1, "g": 0.1, "b": 0.0 },
+      "isStill": false
+    }
+  ],
+  "actions": [
+    {
+      "id": "action0",
+      "type": "cameraOrbit",
+      "params": { "speed": 0.004 },
+      "trigger": "manual"
+    },
+    {
+      "id": "action1",
+      "type": "cameraLerp",
+      "params": { "alpha": -0.3, "beta": 0.9, "radius": 65, "duration": 1200 },
+      "trigger": "manual"
+    }
+  ]
+}

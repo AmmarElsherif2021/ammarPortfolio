@@ -1,0 +1,86 @@
+// ──────────────────────────────────────────────────────────────
+// 1. GENERATOR & DATASOURCE
+// ──────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ──────────────────────────────────────────────────────────────
+// 2. ENUMS (Shared across models)
+// ──────────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  USER
+}
+
+// ──────────────────────────────────────────────────────────────
+// 3. MODELS
+// ──────────────────────────────────────────────────────────────
+
+model User {
+  // ─── Core Fields ──────────────────────────────────────────
+  id         String   @id @default(cuid())  // Matches domain `string` id
+  name       String
+  avatar_url String?                         // Matches domain `avatar_url`
+
+  role       Role     @default(USER)
+
+  // ─── Timestamps ──────────────────────────────────────────
+  created_at DateTime @default(now())
+
+  // ─── Relations ──────────────────────────────────────────
+  articles   Article[] // One User can have many Articles
+
+  @@map("users")
+}
+
+model Article {
+  // ─── Core Fields ──────────────────────────────────────────
+  id         String   @id @default(cuid()) 
+  slug       String   @unique              
+  title      String
+  excerpt    String                         
+  content    String?                        
+  coverImage String                         
+
+  published  Boolean  @default(false)       
+  views      Int      @default(0)           
+
+  // ─── Timestamps ──────────────────────────────────────────
+  created_at DateTime @default(now())       
+  updated_at DateTime @updatedAt()          
+
+  // ─── Foreign Keys & Relations ──────────────────────────
+  author_id  String                         
+  author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade)
+
+  @@index([author_id])                      
+  @@map("articles")
+}
+
+model Project {
+  // ─── Core Fields ──────────────────────────────────────────
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  image_url   String                         
+  tech_stack  String[]                       
+  featured    Boolean  @default(false)       
+  live_url    String?                        
+  github_url  String?                       
+
+  views       Int      @default(0)           
+
+  // ─── Timestamps ──────────────────────────────────────────
+  created_at  DateTime @default(now())       
+  updated_at  DateTime @updatedAt()          
+
+  @@map("projects")
+}
