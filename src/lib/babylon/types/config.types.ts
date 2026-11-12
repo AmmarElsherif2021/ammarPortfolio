@@ -17,7 +17,7 @@ export interface ColorConfig {
   a?: number;
 }
 
-export type CameraType = "arcRotate" | "free";
+export type CameraType = 'arcRotate' | 'free';
 
 export interface CameraConfig {
   type: CameraType;
@@ -31,7 +31,7 @@ export interface CameraConfig {
   maxZ?: number;
 }
 
-export type LightType = "hemispheric" | "directional" | "point";
+export type LightType = 'hemispheric' | 'directional' | 'point';
 
 export interface LightConfig {
   type: LightType;
@@ -60,6 +60,13 @@ export interface EngineSettingsConfig {
   adaptToDeviceRatio?: boolean;
 }
 
+export interface ActionConfig {
+  id: string;
+  type: string;
+  params: Record<string, number | string | boolean>;
+  trigger?: 'auto' | 'manual';
+}
+
 /** The full contents of scene-config.json */
 export interface AppConfig {
   engine: EngineSettingsConfig;
@@ -67,4 +74,5 @@ export interface AppConfig {
   camera: CameraConfig;
   lights: LightConfig[];
   models: ModelConfig[];
+  actions?: ActionConfig[];
 }

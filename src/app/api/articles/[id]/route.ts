@@ -1,27 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient";
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/../prisma/client';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params; // ← await the Promise
-    const { data: article, error } = await supabase
-      .from("articles")
-      .select(
-        `
-        *,
-        comments(*)
-      `,
-      )
-      .eq("id", id)
-      .single();
-
-    if (error) throw error;
-
+    const { id } = await params;
+    const article = await prisma.article.findUnique({
+      where: { id },
+      include: { author: true },
+      // The old Supabase query also selected `comments(*)`.
+      // Prisma has no Comment model today (see seed.ts). If your
+      // schema.prisma does add one, swap to:
+      //   include: { author: true, comments: true },
+    });
+    if (!article) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
     return NextResponse.json(article, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: Error | unknown) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }

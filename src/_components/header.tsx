@@ -1,15 +1,15 @@
 'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+//import { usePathname } from "next/navigation";
 
-const NAV_ITEMS = [
-  { href: "/", label: "Projects" },
-  { href: "/about", label: "About me" },
-];
+// const NAV_ITEMS = [
+//   { href: "/", label: "Projects" },
+//   { href: "/about", label: "About me" },
+// ];
 
 const Header = () => {
-  const pathname = usePathname();
+  //const pathname = usePathname();
 
   return (
     <header className="w-full py-4 px-5">

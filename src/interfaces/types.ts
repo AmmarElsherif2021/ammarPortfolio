@@ -1,5 +1,7 @@
 // types.ts
-import { Color, Vector3 } from "three";
+//import { Color, Vector3 } from "three";
+
+import { User } from '@/domain/entities/User';
 
 /** Configuration for a single 3D model. */
 export interface ModelConfig {
@@ -11,7 +13,7 @@ export interface ModelConfig {
   visible?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;
-  userData?: Record<string, any>;
+  userData?: Record<string, User>;
   material?: { roughness?: number; metalness?: number };
   autoRotate?: boolean;
   autoRotateSpeed?: number;

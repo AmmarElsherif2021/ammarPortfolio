@@ -1,15 +1,15 @@
-import Image from "next/image";
-import { type ProjectCard as ProjectCardType } from "@/domain/entities/Project";
+import Image from 'next/image';
+import { type ProjectCard as ProjectCardType } from '@/domain/entities/Project';
 
-type Variant = "colorful" | "powerful" | "beautiful";
+type Variant = 'colorful' | 'powerful' | 'beautiful';
 
 const VARIANTS: Record<Variant, { bg: string; label: string }> = {
-  colorful: { bg: "bg-retro-tint-3", label: "Colorful" },
-  powerful: { bg: "bg-retro-tint-4", label: "Powerful" },
-  beautiful: { bg: "bg-retro-tint-5", label: "Beautiful" },
+  colorful: { bg: 'bg-retro-tint-3', label: 'Colorful' },
+  powerful: { bg: 'bg-retro-tint-4', label: 'Powerful' },
+  beautiful: { bg: 'bg-retro-tint-5', label: 'Beautiful' },
 };
 
-const ORDER: Variant[] = ["colorful", "powerful", "beautiful"];
+const ORDER: Variant[] = ['colorful', 'powerful', 'beautiful'];
 
 type Props = {
   project: ProjectCardType;
@@ -17,18 +17,10 @@ type Props = {
 };
 
 export function ProjectCard({ project, variant }: Props) {
-  const {
-    title,
-    description,
-    image_url,
-    tech_stack,
-    featured,
-    live_url,
-    github_url,
-  } = project;
+  const { title, description, image_url, tech_stack, featured, live_url, github_url } = project;
 
   const resolvedVariant = variant ?? ORDER[project.id % ORDER.length];
-  const { bg, label } = VARIANTS[resolvedVariant];
+  const { bg } = VARIANTS[resolvedVariant];
 
   return (
     <article className={`retro-card flex flex-col h-full ${bg} min-h-[280px]`}>
@@ -40,24 +32,15 @@ export function ProjectCard({ project, variant }: Props) {
 
       {image_url && (
         <div className="relative w-full h-36 border-b-2 border-retro-ink">
-          <Image
-            src={image_url}
-            alt={`Preview of ${title}`}
-            fill
-            className="object-cover"
-          />
+          <Image src={image_url} alt={`Preview of ${title}`} fill className="object-cover" />
         </div>
       )}
 
       <div className="retro-card-body flex flex-col gap-3 flex-1">
-        <h3 className="font-display text-retro-lg font-black text-retro-ink">
-          {title}
-        </h3>
+        <h3 className="font-display text-retro-lg font-black text-retro-ink">{title}</h3>
 
         {description && (
-          <p className="font-body text-retro-base text-retro-ink/80 line-clamp-3">
-            {description}
-          </p>
+          <p className="font-body text-retro-base text-retro-ink/80 line-clamp-3">{description}</p>
         )}
 
         {tech_stack.length > 0 && (

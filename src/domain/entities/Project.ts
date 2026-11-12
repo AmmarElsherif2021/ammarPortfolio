@@ -13,3 +13,15 @@ export interface Project {
   created_at: string;
   updated_at: string;
 }
+
+export type ProjectCard = Pick<
+  Project,
+  | 'id'
+  | 'title'
+  | 'description'
+  | 'image_url'
+  | 'tech_stack'
+  | 'featured'
+  | 'live_url'
+  | 'github_url'
+>;

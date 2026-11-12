@@ -24,4 +24,5 @@ _posts
 *.sw?
 .env
 .env.local
+*.tsbuildinfo
 /src/generated/prisma
