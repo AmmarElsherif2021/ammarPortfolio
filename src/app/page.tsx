@@ -1,10 +1,10 @@
 // app/page.tsx
-import Container from "@/_components/container";
-import Header from "@/_components/header";
-import { Intro } from "@/_components/intro";
-import { MoreStories } from "@/_components/more-stories";
-import ProjectCard from "@/_components/project-card";
-import { mockArticles, mockProjects } from "@/lib/mockData";
+import Container from '@/_components/container';
+import Header from '@/_components/header';
+import { Intro } from '@/_components/intro';
+import { MoreStories } from '@/_components/more-stories';
+import ProjectCard from '@/_components/project-card';
+import { mockArticles, mockProjects } from '@/lib/mockData';
 
 export default async function Index() {
   return (
@@ -17,7 +17,7 @@ export default async function Index() {
         {mockArticles.length > 0 && (
           <section className="mt-16">
             <h2 className="retro-section-title mb-6">Articles</h2>
-            <MoreStories posts={mockArticles} />
+            <MoreStories articles={mockArticles} />
           </section>
         )}
 

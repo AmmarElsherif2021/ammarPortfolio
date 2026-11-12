@@ -1,6 +1,6 @@
 // types.ts
-import { Color, Vector3 } from 'three';
-
+//import { Color, Vector3 } from 'three';
+import { User } from '@/domain/entities/User';
 /** Configuration for a single 3D model. */
 export interface ModelConfig {
   priority?: boolean;
@@ -11,14 +11,14 @@ export interface ModelConfig {
   visible?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;
-  userData?: Record<string, any>;
+  userData?: Record<string, User>;
   material?: { roughness?: number; metalness?: number };
   autoRotate?: boolean;
   autoRotateSpeed?: number;
-  navPath?: string;          // internal SPA path
-  navSection?: string;       // section to scroll to
-  link?: string;             // external or internal URL
-  buttonLabel?: string;      // label for interactive buttons
+  navPath?: string; // internal SPA path
+  navSection?: string; // section to scroll to
+  link?: string; // external or internal URL
+  buttonLabel?: string; // label for interactive buttons
   explicit?: {
     label: string;
     label_ar: string;
@@ -56,7 +56,7 @@ export interface Segment {
   description: string;
   description_ar: string;
   modelKey: string | string[];
-  sceneBackground: string;   // CSS colour string
+  sceneBackground: string; // CSS colour string
   cameraPosition: { x: number; y: number; z: number };
   textColor: string;
   buttonText?: string;

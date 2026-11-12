@@ -1,8 +1,8 @@
-import { type User } from "@/domain/entities/User";
-import Link from "next/link";
-import Avatar from "./avatar";
-import CoverImage from "./cover-image";
-import DateFormatter from "./date-formatter";
+import { type User } from '@/domain/entities/User';
+import Link from 'next/link';
+import Avatar from './avatar';
+import CoverImage from './cover-image';
+import DateFormatter from './date-formatter';
 
 type Props = {
   title: string;
@@ -13,14 +13,7 @@ type Props = {
   slug: string;
 };
 
-export function PostPreview({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
-}: Props) {
+export function ArticlePreview({ title, coverImage, date, excerpt, author, slug }: Props) {
   return (
     <div className="group h-auto  bg-port-white border border-port-dark/20 hover:border-port-dark/50 transition-colors duration-200 overflow-hidden shadow-card">
       {/* Cover image */}
@@ -52,13 +45,8 @@ export function PostPreview({
         <div className="flex items-center justify-between pt-3 border-t border-port-dark/10 mt-1">
           <Avatar name={author.name} picture={null} />
 
-          <Link
-            href={`/posts/${slug}`}
-            className="flex items-center gap-2 no-underline group/more"
-          >
-            <span className="port-more group-hover/more:opacity-60 transition-opacity">
-              More
-            </span>
+          <Link href={`/posts/${slug}`} className="flex items-center gap-2 no-underline group/more">
+            <span className="port-more group-hover/more:opacity-60 transition-opacity">More</span>
             <span
               className="inline-block border-t border-port-btn transition-all duration-150 group-hover/more:w-8"
               style={{ width: 24 }}

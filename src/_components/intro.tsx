@@ -1,27 +1,44 @@
-"use client";
-import { CMS_NAME } from "@/lib/constants";
-import React, { useEffect, useState, useRef } from "react";
-import dynamic from "next/dynamic";
-import { BabylonSceneHandle } from "./babylonScene";
+// src/_components/intro.tsx
+'use client';
 
-const BabylonScene = dynamic(() => import("@/_components/babylonScene"), {
+import { CMS_NAME } from '@/lib/constants';
+import React, { useEffect, useState, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import type { BabylonSceneHandle } from './babylonScene';
+
+const BabylonScene = dynamic(() => import('@/_components/babylonScene'), {
   ssr: false,
 });
 
+/** Read the OS-level reduced-motion preference (safe during SSR). */
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 export function Intro() {
+  // ── Typewriter state (unchanged) ─────────────────────────────────
   const fullText = [
-    "Software engineer with prior mechanical engineering experience.",
-    "Passionate about digital twin engineering, modeling and simulation and other cool stuff.",
-    "Building vibrant web experiences with variant stacks.",
+    'Software engineer with prior mechanical engineering experience.',
+    'Passionate about digital twin engineering, modeling and simulation and other cool stuff.',
+    'Building vibrant web experiences with variant stacks.',
   ];
-  const [displayText, setDisplayText] = useState("");
+  const [displayText, setDisplayText] = useState('');
   const [index, setIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // ── Scene ref + action cycling (unchanged) ───────────────────────
   const sceneRef = useRef<BabylonSceneHandle | null>(null);
   const [actionIndex, setActionIndex] = useState(0);
 
-  // Typewriter effect (unchanged)
+  // ── Phase 4: reduced-motion guard ────────────────────────────────
+  // When true, we skip mounting the Babylon canvas entirely and serve a
+  // static WebP instead. This is the WCAG 2.3.3 / 2.2.2 fallback the plan
+  // asks for: no auto camera moves, no orbit motion, no WebGL context.
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  // ── Typewriter effect (unchanged) ────────────────────────────────
   useEffect(() => {
     const handleTyping = () => {
       const currentLine = fullText[index];
@@ -44,6 +61,18 @@ export function Intro() {
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, index]);
 
+  // ── Phase 4: subscribe to reduced-motion changes ─────────────────
+  // Read once on mount, then keep it live so the user toggling the OS
+  // setting swaps between canvas and static image without a reload.
+  useEffect(() => {
+    setReducedMotion(prefersReducedMotion());
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setReducedMotion(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  // ── Action cycling (unchanged, but a safe no-op when no canvas) ──
   const handleActionTrigger = () => {
     const actionId = `action${actionIndex}`;
     sceneRef.current?.triggerAction(actionId);
@@ -55,36 +84,41 @@ export function Intro() {
       className="relative w-screen h-screen overflow-hidden bg-transparent"
       onWheel={handleActionTrigger}
     >
-      {/* 
-        Full‑screen 3D scene 
-        - absolute fill
-        - behind the text (z‑0 by default)
+      {/*
+        Full-screen 3D scene — or static fallback under reduced motion.
+        Both fill the section and sit behind the overlay text.
       */}
       <div className="absolute inset-0">
-        <BabylonScene ref={sceneRef} />
+        {reducedMotion ? (
+          <img
+            src="/assets/intro/static-fallback.webp"
+            alt="Abstract technology illustration"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <BabylonScene ref={sceneRef} />
+        )}
       </div>
 
-      {/* 
-        Overlay content – sits on top, allows scrolling if needed 
-        
+      {/*
+        Overlay content — sits on top, allows scrolling if needed.
       */}
       <div className="relative z-10 w-[2vw] h-full flex items-center justify-start pt-[15vh] px-6 md:px-12 lg:px-20 ">
         <div className="max-w-2xl text-port-black ">
           {/* Main heading */}
-
           <h1 className="text-4xl font-bold leading-snug line-clamp-3 md:text-5xl lg:text-6xl xl:text-8xl xl:leading-[1.1]">
             <span className="inline-block bg-yellow-300 px-2 py-1 font-martianMono font-bold">
-              {" "}
+              {' '}
               Design,
             </span>
             <br />
             <span className="inline-block bg-yellow-300 px-2 py-1 font-martianMono font-bold">
-              {" "}
+              {' '}
               Develop
             </span>
             <br />
             <span className="inline-block bg-yellow-300 px-2 py-1 font-martianMono font-bold">
-              {" "}
+              {' '}
               &amp; Twin
             </span>
           </h1>
@@ -107,10 +141,7 @@ export function Intro() {
             <button className="port-btn font-bold">Get in touch</button>
             <div className="flex items-center gap-3">
               <span className="port-more">More</span>
-              <span
-                className="inline-block border-t border-port-black"
-                style={{ width: 30 }}
-              />
+              <span className="inline-block border-t border-port-black" style={{ width: 30 }} />
             </div>
           </div>
 
@@ -127,18 +158,20 @@ export function Intro() {
 
           {/* Powered by */}
           <p className="port-body2 opacity-60 mt-4">
-            Powered by{" "}
+            Powered by{' '}
             <a href="https://nextjs.org/" className="port-link text-sm">
               Next.js
-            </a>{" "}
+            </a>{' '}
             and {CMS_NAME}
           </p>
         </div>
       </div>
 
-      {/* 
-        Action button – also overlaid, fixed position on the scene
-        (could also be placed inside the text container, but we put it bottom‑left)
+      {/*
+        Action button — also overlaid, fixed position on the scene.
+        Under reduced motion, `sceneRef.current` is null and
+        `triggerAction` is a safe no-op, so the button is inert.
+        Consider hiding it when `reducedMotion` is true if you prefer.
       */}
       <button
         className="retro-btn fixed bottom-8 left-8 z-20 color-blue"
@@ -147,12 +180,6 @@ export function Intro() {
       >
         action {actionIndex + 1}
       </button>
-
-      {/* 
-        (Optional) decorative frame/corners – removed because scene is full‑screen.
-        If you still want them, you can add them as absolute positioned elements 
-        with higher z‑index, but they would sit on top of the scene.
-      */}
     </section>
   );
 }

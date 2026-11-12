@@ -6,6 +6,30 @@ This is the single developer reference. Part A records the verified state. Part 
 
 ## Part A — Verified state
 
+### A0. Phase progress
+
+Last updated after Phases 0–2 were completed and the build-blocking fixes were landed to reach a green baseline. Part B onwards still describes the plan unchanged.
+
+| Phase | Name                   | Status     |
+| ----- | ---------------------- | ---------- |
+| 0     | Baseline               | ✅ Done    |
+| 1     | Prisma runtime fix     | ✅ Done    |
+| 2     | Remove Supabase        | ✅ Done    |
+| 3     | Remove Three.js / R3F  | ⏳ Pending |
+| 4     | Babylon stabilization  | ⏳ Pending |
+| 5     | Design system ("port") | ⏳ Pending |
+| 6     | Developer blog         | ⏳ Pending |
+| 7     | Hardening and release  | ⏳ Pending |
+
+Baseline result on `chore/stabilize`:
+
+- `npx tsc --noEmit` — **clean** (`baseline-tsc.log` empty).
+- `npm run lint` — **clean** (`baseline-lint.log` empty).
+- `npm run build` — **succeeds**: `✓ Compiled successfully`, `✓ Generating static pages (11/11)`, route table emitted, no type-error block.
+- Recorded bundle: First Load JS shared by all = **104 kB**.
+
+The build is green. Remaining work is design and cleanup, not stability.
+
 ### A1. Executive summary
 
 The repo is a Next.js portfolio in a mixed, transitional state. It contains substantial Babylon.js work and a Prisma setup, but it is not in the fully migrated state earlier notes described. It still has the legacy Retro styling, the old Three.js stack, and Supabase client usage. Prisma is configured for Postgres with a custom generator, but the runtime code does not match that setup.
@@ -84,7 +108,7 @@ Confirmed: `prisma/schema.prisma` exists; generator is `provider = "prisma-clien
 The runtime client does not match the intended Prisma 7 setup. `prisma/client.ts` currently is:
 
 ```ts
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 export const prisma = new PrismaClient();
 ```
 

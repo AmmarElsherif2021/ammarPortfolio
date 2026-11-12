@@ -108,15 +108,237 @@ Essentially, React provides the blueprints for your UI, while React DOM performs
 
 ### Utility types cheat sheet
 
-| Utility Type | What it does | Analogy |
-| --- | --- | --- |
-| Partial<T> | Makes everything optional. | "I only have some of the ingredients right now." |
-| Required<T> | Makes everything mandatory. | "No shortcuts, I need all the ingredients." |
-| Pick<T, K> | Keeps only the chosen keys. | "I only want the title and date columns." |
-| Omit<T, K> | Removes the chosen keys. | "Give me everything except the 'content' column." |
-| Readonly<T> | Prevents assignments. | "Read it, but don't write it." |
-| Record<K, T> | Creates a map/dictionary. | "Here is a look-up table." |
+| Utility Type | What it does                | Analogy                                           |
+| ------------ | --------------------------- | ------------------------------------------------- |
+| Partial<T>   | Makes everything optional.  | "I only have some of the ingredients right now."  |
+| Required<T>  | Makes everything mandatory. | "No shortcuts, I need all the ingredients."       |
+| Pick<T, K>   | Keeps only the chosen keys. | "I only want the title and date columns."         |
+| Omit<T, K>   | Removes the chosen keys.    | "Give me everything except the 'content' column." |
+| Readonly<T>  | Prevents assignments.       | "Read it, but don't write it."                    |
+| Record<K, T> | Creates a map/dictionary.   | "Here is a look-up table."                        |
 
 ---
 
 Final Tip: Always start with interface for your data models. If you find yourself needing to transform that interface for a specific function (like update), use utility types (Partial, Omit) inside the function signature instead of creating a whole new bloated interface.
+
+# Next flow explanation:
+
+# Static parameters in Next.js — explicit reference
+
+## What "static parameters" are
+
+**Static parameters** are the values that `generateStaticParams()` returns.
+They are the contract between a dynamic route and the build step.
+
+For the route `src/app/articles/[slug]/page.tsx`:
+
+- The dynamic segment is `[slug]`.
+- Therefore each entry in the returned array must have a `slug` key.
+- The return shape is `Array<{ slug: string }>`.
+
+```ts
+// The contract:
+type SlugParam = { slug: string };
+type GenerateStaticParamsReturn = SlugParam[];
+```
+
+At build time Next.js iterates this array. For each `{ slug: "..." }` entry
+it invokes the default export of `page.tsx` with `params = { slug }`,
+renders the output to HTML, and writes it to disk. The result is exactly
+one static `/articles/<slug>` page per entry.
+
+The parameter shape must mirror the dynamic segments **exactly**:
+
+| Route                                 | generateStaticParams returns                |
+| ------------------------------------- | ------------------------------------------- |
+| `app/articles/[slug]/page.tsx`        | `{ slug: string }[]`                        |
+| `app/blog/[category]/[slug]/page.tsx` | `{ category: string; slug: string }[]`      |
+| `app/docs/[[...slug]]/page.tsx`       | `{ slug: string[] }[]` (optional catch-all) |
+
+No HTTP call, no server running. `generateStaticParams` is a plain
+function executed inside the Node build process. It reads from Prisma,
+returns plain objects, and exits.
+
+## The validated flow
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ NEXT.JS BUILD PROCESS (Node.js)                              │
+└──────────────────────────────────────────────────────────────┘
+            │
+            │ executes
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ src/app/articles/[slug]/page.tsx                             │
+│                                                              │
+│ Server Component. Runs on server only.                       │
+│ Contains:                                                    │
+│   • generateStaticParams()   ← returns the static params     │
+│   • ArticlePage()            ← one call per param            │
+│   • generateMetadata()       ← one call per param            │
+│   • revalidate = 60          ← ISR at runtime                │
+└──────────────────────────────────────────────────────────────┘
+            │
+            │ generateStaticParams()
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ PRISMA CLIENT                                                │
+│ prisma.article.findMany({ where: { published: true },        │
+│                           select: { slug: true } })          │
+└──────────────────────────────────────────────────────────────┘
+            │
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ POSTGRES  ·  articles table                                  │
+│   id | slug          | title        | published | author_id  │
+└──────────────────────────────────────────────────────────────┘
+            │
+            │ returns rows
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ [ { slug: "hello-world"    },                                │
+│   { slug: "nextjs-guide"   },                                │
+│   { slug: "prisma-tutorial"} ]                               │
+└──────────────────────────────────────────────────────────────┘
+            │
+            │ returned to Next.js as the static params
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ NEXT.JS STATIC GENERATION                                    │
+│ one pre-render per entry                                     │
+└──────────────────────────────────────────────────────────────┘
+        │                  │                  │
+        ▼                  ▼                  ▼
+ /articles/hello-world  /articles/nextjs-guide  /articles/prisma-tutorial
+        │                  │                  │
+        └──────────┬───────┴────────┬─────────┘
+                   │                │
+                   │ for each param │
+                   ▼                ▼
+┌──────────────────────────────────────────────────────────────┐
+│ ArticlePage({ params: { slug } })                            │
+│                                                              │
+│   prisma.article.findUnique({                                │
+│     where: { slug },                                         │
+│     include: { author: true }                                │
+│   })                                                         │
+└──────────────────────────────────────────────────────────────┘
+            │
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ POSTGRES  ·  returns full article row + author               │
+└──────────────────────────────────────────────────────────────┘
+            │
+            ▼
+┌──────────────────────────────────────────────────────────────┐
+│ HTML CREATED                                                 │
+└──────────────────────────────────────────────────────────────┘
+            │
+            ▼
+       Static HTML output
+```
+
+## What static params do **not** do
+
+Static params are a **build-time optimization**, not an access-control
+rule. Two consequences worth knowing:
+
+1. **Default behavior — `dynamicParams = true`:**
+   A request for a slug not in the array still succeeds. Next.js renders
+   the page on first request, then caches it per `revalidate`. If your
+   `where: { published: true }` in `generateStaticParams` is meant to
+   hide drafts, also guard the page body:
+
+   ```ts
+   if (!article || !article.published) notFound();
+   ```
+
+2. **Hard 404 — `dynamicParams = false`:**
+   Add this export to the page to make unknown slugs 404 without ever
+   touching the DB at runtime:
+
+   ```ts
+   export const dynamicParams = false;
+   ```
+
+   Trade-off: publishing a new article requires a rebuild before its
+   URL resolves. Keep `true` if you want on-demand generation.
+
+## ISR at runtime (what `revalidate` actually does)
+
+`export const revalidate = 60` is a **runtime caching policy**. It has
+no effect during `next build` — all static params are rendered then,
+regardless of `revalidate`.
+
+At runtime the behavior is **stale-while-revalidate**:
+
+```
+t = 0          page generated, cached
+t = 0..60 s    cached HTML served (instant, no DB hit)
+t = 60 s+      first request:
+                 ↳ stale HTML served immediately
+                 ↳ background regeneration triggered
+t = regen done fresh HTML cached
+t = future     fresh HTML served until next 60 s window
+```
+
+The page is never blocked waiting for regeneration — that is the whole
+point of ISR. If you need strictly fresh data on every request, use
+`export const dynamic = 'force-dynamic'` instead (and lose the cache).
+
+## Where each piece runs
+
+```
+┌──────────────────────────────────┐
+│ Browser │
+├──────────────────────────────────┤
+│ "use client" components │
+│ React state, event handlers │
+│ fetch("/api/...") │
+└──────────────────────────────────┘
+│
+│ HTTP request
+▼
+┌──────────────────────────────────┐
+│ Next.js Server │
+├──────────────────────────────────┤
+│ page.tsx / layout.tsx │
+│ generateStaticParams() │
+│ generateMetadata() │
+│ Server Components │
+│ Prisma Client │
+└──────────────────────────────────┘
+│
+│ SQL
+▼
+┌──────────────────────────────────┐
+│ PostgreSQL │
+│ Articles · Authors · Users │
+└──────────────────────────────────┘
+```
+
+API Routes (`src/app/api/**/route.ts`) are a **separate** server entry
+point, used when a _client_ component needs server data. They also use
+Prisma. They are not part of the static-params flow.
+
+## Rule of thumb
+
+Server Component? Client Component?
+
+```
+(page.tsx, layout.tsx, ("use client")
+generateStaticParams, │
+generateMetadata) ▼
+│ fetch("/api/articles")
+▼ │
+Prisma directly ▼
+│ API Route (route.ts)
+▼ │
+prisma.article.findMany() ▼
+prisma.article.findUnique() Prisma Client
+│
+▼
+PostgreSQL
+---
+
+```

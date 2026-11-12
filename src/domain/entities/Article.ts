@@ -1,4 +1,4 @@
-import type { User } from "./User";
+import type { User } from './User';
 
 // ─── Entity interface (mirrors the `articles` table) ─────────────────────────
 
@@ -8,11 +8,16 @@ export interface Article {
   slug: string;
   content: string;
   excerpt?: string;
-  author_id: string; //FK -- users.id
-  author?: Pick<User, "id" | "name" | "avatar_url">;
+  //authorId: string; //FK -- users.id
+  author?: Pick<User, 'id' | 'name' | 'avatar_url'>;
   published: boolean;
   views: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   coverImage?: string; // URL of cover image
 }
+
+export type ArticlePreview = Pick<
+  Article,
+  'id' | 'title' | 'slug' | 'excerpt' | 'author' | 'createdAt' | 'coverImage'
+>;

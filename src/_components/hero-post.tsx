@@ -1,8 +1,8 @@
-import Avatar from "@/_components/avatar";
-import CoverImage from "@/_components/cover-image";
-import { type User } from "@/domain/entities/User";
-import Link from "next/link";
-import DateFormatter from "./date-formatter";
+import Avatar from '@/_components/avatar';
+import CoverImage from '@/_components/cover-image';
+import { type User } from '@/domain/entities/User';
+import Link from 'next/link';
+import DateFormatter from './date-formatter';
 
 type Props = {
   title: string;
@@ -13,20 +13,15 @@ type Props = {
 };
 
 const defaultAuthor: User = {
-  id: "1",
-  email: "ammar.alshareef2014@gmail.com",
-  name: "Ammar Elsherif",
-  role: "admin",
+  id: '1',
+  email: 'ammar.alshareef2014@gmail.com',
+  name: 'Ammar Elsherif',
+  role: 'admin',
   created_at: new Date().toISOString(),
+  avatar_url: 'https://avatars.githubusercontent.com/u/10309100?v=4',
 };
 
-export function HeroPost({
-  title,
-  coverImage,
-  created_at,
-  author = defaultAuthor,
-  slug,
-}: Props) {
+export function HeroPost({ title, coverImage, created_at, author = defaultAuthor, slug }: Props) {
   return (
     <section className="mb-20 md:mb-28 animate-slide-in">
       {/* Cover image */}
